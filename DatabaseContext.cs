@@ -53,6 +53,6 @@ namespace FullStackTheSafeSitterApp
     public DbSet<EmergencyContact> EmergencyContacts { get; set; }
     public DbSet<BabySittingJob> BabySittingJobs { get; set; }
     public DbSet<FullStackTheSafeSitterApp.Models.CheckListLog> CheckListLog { get; set; }
-    public DbSet<FullStackTheSafeSitterApp.Models.CheckListItem> CheckListItem { get; set; }
+    public DbSet<FullStackTheSafeSitterApp.Models.CheckListItem> CheckListItems { get; set; }
   }
 }
