@@ -1,16 +1,15 @@
 import React, { Component } from 'react'
 import Header from './Header'
-import BabyLoginForm from './BabyLogInForm'
-
-class Home extends Component {
+import RegisterForm from './RegisterForm'
+class Register extends Component {
   render() {
     return (
       <div className="d-flex align-center f-d-column">
         <Header />
-        <BabyLoginForm />
+        <RegisterForm />
       </div>
     )
   }
 }
 
-export default Home
+export default Register

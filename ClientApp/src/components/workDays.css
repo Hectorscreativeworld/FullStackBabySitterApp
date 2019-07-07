@@ -1,0 +1,43 @@
+body {}
+
+.day-of-week {
+  flex-basis: 20%;
+}
+
+.datebox {
+  /* font-size: 1rem; */
+}
+
+.daysCanWork {
+  margin-bottom: 1rem;
+}
+
+.form-check-label {
+  padding: .5rem;
+  width: 100%;
+}
+
+.daysCanWork {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  font-size: 3rem;
+
+}
+
+label span {
+  /* selector for the semi-colon between the hour and minutes */
+  padding: 0 .1rem;
+}
+
+.dropdown-options {
+  /* selector for the dropdown times */
+  margin: 0 !important;
+  font-size: 1rem;
+  width: 5vh;
+}
+
+.dropdown-options option {
+  padding: 0 !important;
+
+}

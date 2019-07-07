@@ -1,0 +1,144 @@
+:root {
+  font: 16px / 1 sans-serif;
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  min-height: 100%;
+  background-color: #C4E8F6;
+}
+
+h2 {
+  color: rgb(48, 48, 48)
+}
+
+h3 {
+  color: rgb(48, 48, 48);
+}
+
+textarea {
+  background-color: #ffffff;
+}
+
+.form-check-input {}
+
+.d-flex {
+  display: flex;
+}
+
+.align-center {
+  align-items: center;
+}
+
+.f-d-column {
+  flex-direction: column;
+}
+
+.logo-container {
+  display: flex;
+  justify-content: center;
+}
+
+.header-still {
+
+  width: 30rem;
+  height: 30rem;
+
+}
+
+.login-form {
+  width: 30%;
+}
+
+label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 200;
+  color: gray;
+}
+
+.input-container {
+  margin-bottom: 1rem;
+
+}
+
+
+.Footer-Text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 0.5rem;
+}
+
+.forgot-text {
+  margin-top: 0.5rem;
+
+}
+
+.daysCanWork {
+  display: flex;
+}
+
+
+
+input .datebox {
+  display: flex;
+  width: 8rem;
+  height: 6rems
+}
+
+hr {
+  width: 100%;
+
+  border: solid #EBC23E;
+}
+
+
+/* Payment Type */
+
+
+.PaymentContainer {
+  display: flex;
+
+}
+
+.cashApp {
+  width: 4rem;
+  height: 4rem;
+  padding: .5rem;
+}
+
+.palPal {
+  width: 4rem;
+  height: 4rem;
+  padding: .5rem;
+}
+
+.Venmo {
+  width: 4rem;
+  height: 4rem;
+  padding: .5rem;
+}
+
+.payButton {
+  font-size: 20px;
+  border-radius: 8px;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+
+}
+
+
+.welcomeText {
+  text-align: center;
+  font-size: 2rem;
+}
+
+
+.AlmostDoneText {
+  text-align: center;
+}
