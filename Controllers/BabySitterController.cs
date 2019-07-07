@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using FullStackTheSafeSitterApp;
 using FullStackTheSafeSitterApp.Models;
+using FullStackTheSafeSitterApp.ViewModel;
 
 namespace sdg_react_template.Controllers
 {
@@ -92,8 +93,12 @@ namespace sdg_react_template.Controllers
     public async Task<ActionResult> Register([FromBody] RegisterViewModel registerInformation)
     {
       //check if the user exists
-      var exits = await _context.Users.AnyAsync(user => user.UserName == );
+      var exits = await _context.Users.AnyAsync(user => user.UserName == registerInformation.Email);
       // if exists, return an error
+      if (exits)
+      {
+        return BadRequest(new { message = "User with the email already exists" });
+      }
       //else create a user
       // return a token so the user can do user things
       return Ok(registerInformation);

@@ -78,6 +78,12 @@ namespace sdg_react_template.Controllers
     [HttpPost]
     public async Task<ActionResult<User>> PostUser(User user)
     {
+      var exits = await _context.Users.AnyAsync(u => u.UserName == user.UserName || u.Email == user.Email);
+      // if exists, return an error
+      if (exits)
+      {
+        return BadRequest(new { message = "User with the email already exists" });
+      }
       user.Password = GetHashString(user.Password);
       _context.Users.Add(user);
       await _context.SaveChangesAsync();

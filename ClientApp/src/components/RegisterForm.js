@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import '../RegisterForm.css'
 import axios from 'axios'
+import PropTypes from 'prop-types'
 
 class RegisterForm extends Component {
   constructor(props) {
@@ -67,20 +68,29 @@ class RegisterForm extends Component {
       this.state.email,
       this.state.confirmPassword
     )
+    var self = this
     axios
       .post('/api/user', {
         firstName: this.state.firstName,
         lastName: this.state.lastName,
-        loginId: this.state.username,
-        password: this.state.confirmPassword
+        userName: this.state.username,
+        password: this.state.confirmPassword,
+        email: this.state.email
       })
       .then(function(response) {
         console.log(response)
         console.log('success login')
+        self.props.setLoggedIn({
+          userName: self.state.userName,
+          email: self.state.email
+        })
       })
       .catch(function(error) {
         console.log(error)
         console.log('Error Register User')
+        alert(
+          'Failed to register user. Username or email might already exists.'
+        )
       })
   }
 
@@ -193,6 +203,9 @@ class RegisterForm extends Component {
       </div>
     )
   }
+}
+RegisterForm.propTypes = {
+  setLoggedIn: PropTypes.func.required
 }
 
 export default RegisterForm
