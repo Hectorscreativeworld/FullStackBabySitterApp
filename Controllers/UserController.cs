@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using FullStackTheSafeSitterApp;
 using FullStackTheSafeSitterApp.Models;
+using FullStackTheSafeSitterApp.ClientApp.src.Services;
 
 namespace sdg_react_template.Controllers
 {
@@ -122,25 +123,45 @@ namespace sdg_react_template.Controllers
       return sb.ToString();
     }
 
-    // DELETE: api/User/5
-    [HttpDelete("{id}")]
-    public async Task<ActionResult<User>> DeleteUser(int id)
+    // NEW CHANGE create a User
+    var user = new User
     {
-      var user = await _context.Users.FindAsync(id);
-      if (user == null)
-      {
-        return NotFound();
-      }
+      UserName = User.Email,
+      Email = User.Email,
+      FullName = User.FullName,
+    };
+    var hashed = new UserService().HashPassword(user, User.Password);
+    User.PasswordHash = hashed;
+    _context.User.Add(user);
+    await_context.SaveChangesAsync();
 
-      _context.Users.Remove(user);
-      await _context.SaveChangesAsync();
 
-      return user;
+   //Return a token so that user can do user things
+   return Ok(User);
+
+  };
+
+
+
+  // DELETE: api/User/5
+  [HttpDelete("{id}")]
+  public async Task<ActionResult<User>> DeleteUser(int id)
+  {
+    var user = await _context.Users.FindAsync(id);
+    if (user == null)
+    {
+      return NotFound();
     }
 
-    private bool UserExists(int id)
-    {
-      return _context.Users.Any(e => e.Id == id);
-    }
+    _context.Users.Remove(user);
+    await _context.SaveChangesAsync();
+
+    return user;
   }
+
+  private bool UserExists(int id)
+  {
+    return _context.Users.Any(e => e.Id == id);
+  }
+}
 }
