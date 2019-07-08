@@ -85,7 +85,8 @@ namespace sdg_react_template.Controllers
       {
         return BadRequest(new { message = "User with the email already exists" });
       }
-      user.Password = GetHashString(user.Password);
+      var hashed = new UserService().HashPassword(user, user.Password);
+      user.Password = hashed;
       _context.Users.Add(user);
 
       await _context.SaveChangesAsync();
@@ -105,63 +106,48 @@ namespace sdg_react_template.Controllers
       }
       await _context.SaveChangesAsync();
 
-      return CreatedAtAction("GetUser", new { id = user.Id }, user);
+      var rv = new UserService().CreateUserData(user);
+      return Ok(rv);
     }
 
-    public static byte[] GetHash(string inputString)
+
+    //     // NEW CHANGE create a User
+    //     var user = new User
+    //     {
+    //       UserName = User.Email,
+    //       Email = User.Email,
+    //       FullName = User.FullName,
+    //     };
+
+    //     _context.User.Add(user);
+    //     await_context.SaveChangesAsync();
+    // //Return a token so that user can do user things
+    //     var rv = new UserService().CreateUserData(user);
+    //     return Ok(rv);
+
+    //   };
+
+
+
+    // DELETE: api/User/5
+    [HttpDelete("{id}")]
+    public async Task<ActionResult<User>> DeleteUser(int id)
     {
-      HashAlgorithm algorithm = SHA256.Create();
-      return algorithm.ComputeHash(Encoding.UTF8.GetBytes(inputString));
+      var user = await _context.Users.FindAsync(id);
+      if (user == null)
+      {
+        return NotFound();
+      }
+
+      _context.Users.Remove(user);
+      await _context.SaveChangesAsync();
+
+      return user;
     }
 
-    public static string GetHashString(string inputString)
+    private bool UserExists(int id)
     {
-      StringBuilder sb = new StringBuilder();
-      foreach (byte b in GetHash(inputString))
-        sb.Append(b.ToString("X2"));
-
-      return sb.ToString();
+      return _context.Users.Any(e => e.Id == id);
     }
-
-    // NEW CHANGE create a User
-    var user = new User
-    {
-      UserName = User.Email,
-      Email = User.Email,
-      FullName = User.FullName,
-    };
-    var hashed = new UserService().HashPassword(user, User.Password);
-    User.PasswordHash = hashed;
-    _context.User.Add(user);
-    await_context.SaveChangesAsync();
-
-
-   //Return a token so that user can do user things
-   return Ok(User);
-
-  };
-
-
-
-  // DELETE: api/User/5
-  [HttpDelete("{id}")]
-  public async Task<ActionResult<User>> DeleteUser(int id)
-  {
-    var user = await _context.Users.FindAsync(id);
-    if (user == null)
-    {
-      return NotFound();
-    }
-
-    _context.Users.Remove(user);
-    await _context.SaveChangesAsync();
-
-    return user;
   }
-
-  private bool UserExists(int id)
-  {
-    return _context.Users.Any(e => e.Id == id);
-  }
-}
 }
