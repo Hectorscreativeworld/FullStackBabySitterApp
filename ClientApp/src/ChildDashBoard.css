@@ -1,0 +1,69 @@
+.wrapper {
+  display: inline-block;
+}
+
+
+.mainContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 50%;
+
+}
+
+.stillAndName {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 0%;
+  justify-content: space-around;
+
+}
+
+.safetyStill {
+  width: 100px;
+  height: auto;
+
+}
+
+.medBag {
+  display: flex;
+  justify-content: flex-end;
+  padding: 0%;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.CheckMark {
+  width: 100px;
+  height: auto;
+}
+
+.KidsMark {
+  display: flex;
+  justify-content: flex-end;
+  padding: 0%;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.SpecialNotes {
+  background-image: url("./Images/office-yellow-paper-sticky-note-transparent-background-template-your-projects-vector-illustration-106733431.png");
+  background-size: cover;
+  min-height: 400px;
+  padding-top: 20%;
+  padding-left: 20%;
+  padding-right: 20%;
+}
+
+.sendStill {
+  padding-top: 10%;
+}
+
+.lastYellowLine {
+  margin-bottom: 20%;
+}
+
+.KidsAwesomeText {
+  text-align: center;
+}

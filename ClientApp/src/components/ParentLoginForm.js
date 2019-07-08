@@ -61,11 +61,11 @@ class ParentLoginForm extends Component {
             <span className="section" />
             Your Profile:
           </legend>
-          <label for="avatar">Choose a profile picture:</label>
+          <label htmlFor="avatar">Choose a profile picture:</label>
           <button id="avatar-btn" name="avatar" onClick={this.handleBtnClick}>
             Insert Image
           </button>
-          <label className="" for="name">
+          <label className="" htmlFor="name">
             Kids Name:
           </label>
           <input
@@ -74,7 +74,7 @@ class ParentLoginForm extends Component {
             value={this.state.nameValue}
             onChange={this.handleChange.bind(this)}
           />
-          <label className="" for="name">
+          <label className="" htmlFor="name">
             Contact Number:
           </label>
           <input
@@ -83,7 +83,7 @@ class ParentLoginForm extends Component {
             value={this.state.contactNumberValue}
             onChange={this.handleNumberChange.bind(this)}
           />
-          <label className="" for="bio">
+          <label className="" htmlFor="bio">
             Tells us about your little one
           </label>
           <textarea
@@ -92,7 +92,7 @@ class ParentLoginForm extends Component {
             value={this.state.aboutKidsValue}
             onChange={this.handleKidsChange.bind(this)}
           />
-          <label className="" for="bio">
+          <label className="" htmlFor="bio">
             Is your little one allergic to anything?
           </label>
           <textarea
@@ -102,7 +102,7 @@ class ParentLoginForm extends Component {
             onChange={this.handleAllergicChange.bind(this)}
           />
 
-          <label className="" for="bio">
+          <label className="" htmlFor="bio">
             Any special instructions in case of an allergic reaction?
           </label>
           <textarea
@@ -126,12 +126,12 @@ class ParentLoginForm extends Component {
           ))}
         </fieldset>
 
-        <label className="" for="checkList">
+        <label className="" htmlFor="checkList">
           Create a check list: Use commons to separate items.
         </label>
         <TodoList />
 
-        <label className="" for="checkList">
+        <label className="" htmlFor="checkList">
           Special Notes:
         </label>
         <textarea

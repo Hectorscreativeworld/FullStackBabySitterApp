@@ -7,8 +7,8 @@ class RegisterForm extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      bsBtn: false,
-      parBtn: false,
+      isBabySitter: false,
+      isParent: false,
       username: '',
       email: '',
       password: '',
@@ -18,37 +18,16 @@ class RegisterForm extends Component {
     }
     this.handleInputChange = this.handleInputChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
+    this.onBabysitterChanged = this.onBabysitterChanged.bind(this)
   }
-  radioBtnHandler(event) {
-    console.log('test', event.target.name, this.state.bsBtn, this.state.parBtn)
-    let active = event.target.name
-    // first both btn are off, check this if both btn ar off
-    // secound one btn is on, check this if one btn is true
-    if (this.state.bsBtn === false && this.state.parBtn === false) {
-      console.log('TERST!!!')
-      //flip on of the btns on
-      if (active === 'Babysitter') {
-        this.setState({ bsBtn: true })
-      }
-      if (active === 'Parent') {
-        this.setState({ parBtn: true })
-        console.log('Active Log!!!!')
-      }
-    } else if (this.state.bsBtn === true) {
-      if (active === 'Babysitter') {
-        this.setState({ bsBtn: !this.state.bsBtn })
-      }
-      if (active === 'Parent') {
-        this.setState({ parBtn: !this.state.parBtn, bsBtn: !this.state.bsBtn })
-      }
-    } else if (this.state.parBtn === true) {
-      if (active === 'Parent') {
-        this.setState({ parBtn: !this.state.parBtn })
-      }
-      if (active === 'Babysitter') {
-        this.setState({ parBtn: !this.state.parBtn, bsBtn: !this.state.bsBtn })
-      }
-    }
+
+  onBabysitterChanged(event) {
+    console.log(this.state)
+    this.setState({
+      isParent: event.currentTarget.value === 'parent',
+      isBabySitter: event.currentTarget.value === 'babysitter'
+    })
+    console.log(this.state)
   }
 
   handleInputChange(event) {
@@ -69,20 +48,29 @@ class RegisterForm extends Component {
       this.state.confirmPassword
     )
     var self = this
+    var isBabySitter = this.state.isBabySitter
+    var isParent = this.state.isParent
+    if (isBabySitter === false && isParent === false) {
+      isParent = true
+    }
     axios
       .post('/api/user', {
         firstName: this.state.firstName,
         lastName: this.state.lastName,
         userName: this.state.username,
         password: this.state.confirmPassword,
-        email: this.state.email
+        email: this.state.email,
+        isBabySitter: self.state.isBabySitter,
+        isParent: isParent
       })
       .then(function(response) {
         console.log(response)
         console.log('success login')
         self.props.setLoggedIn({
-          userName: self.state.userName,
-          email: self.state.email
+          username: self.state.username,
+          email: self.state.email,
+          isBabySitter: self.state.isBabySitter,
+          isParent: isParent
         })
       })
       .catch(function(error) {
@@ -176,10 +164,10 @@ class RegisterForm extends Component {
             <label className="BorPTitle">Babysitter or Parent:</label>
             <input
               type="Radio"
-              name="Babysitter"
+              name="BabysitterOrParent"
               value="babysitter"
-              onClick={this.radioBtnHandler.bind(this)}
-              checked={this.state.bsBtn}
+              onChange={this.onBabysitterChanged}
+              checked={this.state.isBabySitter === true}
             />
             <label className="light babysitterBtn" htmlFor="babysitter">
               Babysitter:
@@ -187,10 +175,10 @@ class RegisterForm extends Component {
 
             <input
               type="Radio"
-              name="Parent"
+              name="BabysitterOrParent"
               value="parent"
-              onClick={this.radioBtnHandler.bind(this)}
-              checked={this.state.parBtn}
+              onChange={this.onBabysitterChanged}
+              checked={this.state.isBabySitter === false}
             />
             <label className="light" htmlFor="parent">
               Parent:
@@ -205,7 +193,7 @@ class RegisterForm extends Component {
   }
 }
 RegisterForm.propTypes = {
-  setLoggedIn: PropTypes.func.required
+  setLoggedIn: PropTypes.func.isRequired
 }
 
 export default RegisterForm

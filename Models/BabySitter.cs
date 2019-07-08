@@ -1,8 +1,11 @@
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace FullStackTheSafeSitterApp.Models
 {
   public class BabySitter
   {
     public int Id { get; set; }
+    [ForeignKey("User")]
     public int UserId { get; set; }
 
     public virtual User User { get; set; }

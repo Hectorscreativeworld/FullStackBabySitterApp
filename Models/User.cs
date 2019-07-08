@@ -8,6 +8,8 @@ namespace FullStackTheSafeSitterApp.Models
     public string LastName { get; set; }
     public string Email { get; set; }
     public string Password { get; set; }
+    public bool IsParent { get; set; }
+    public bool IsBabySitter { get; set; }
 
   }
 }

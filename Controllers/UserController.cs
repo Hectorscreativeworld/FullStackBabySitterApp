@@ -86,6 +86,22 @@ namespace sdg_react_template.Controllers
       }
       user.Password = GetHashString(user.Password);
       _context.Users.Add(user);
+
+      await _context.SaveChangesAsync();
+      if (user.IsParent)
+      {
+        _context.Parents.Add(new Parent
+        {
+          UserId = user.Id
+        });
+      }
+      else
+      {
+        _context.BabySitters.Add(new BabySitter
+        {
+          UserId = user.Id
+        });
+      }
       await _context.SaveChangesAsync();
 
       return CreatedAtAction("GetUser", new { id = user.Id }, user);

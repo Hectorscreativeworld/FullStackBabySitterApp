@@ -14,7 +14,7 @@ class Register extends Component {
   }
 }
 Register.propTypes = {
-  setLoggedIn: PropTypes.func.required
+  setLoggedIn: PropTypes.func.isRequired
 }
 
 export default Register

@@ -5,6 +5,7 @@ import Register from './components/Register'
 import BabySitterLogIn from './components/BabySitterLogIn'
 import ParentLogIn from './components/ParentLogIn'
 import MainPage from './components/MainPage'
+import ChildDashBoard from './components/ChildDashBoard'
 import PageNotFound from './components/PageNotFound'
 import './BabysitterLogin.css'
 
@@ -13,6 +14,7 @@ function App() {
   const [loggedInUser, setLoggedIn] = useState({})
   const setLogOn = userInfo => {
     console.log('user has logged in')
+    console.log(userInfo)
     setLoggedIn(userInfo)
   }
   return (
@@ -25,9 +27,14 @@ function App() {
           component={props => <Register {...props} setLoggedIn={setLogOn} />}
         />
       )}
-      <Route exact path="/BabySitterLogIn" component={BabySitterLogIn} />
-      <Route exact path="/ParentLogIn" component={ParentLogIn} />
+      {loggedInUser.username && loggedInUser.isBabySitter && (
+        <Route exact path="/*" component={BabySitterLogIn} />
+      )}
+      {loggedInUser.username && loggedInUser.isParent && (
+        <Route exact path="/*" component={ParentLogIn} />
+      )}
       <Route exact path="/MainPage" component={MainPage} />
+      <Route exact path="/ChildDashBoard" component={ChildDashBoard} />
       <Route exact path="/*" component={PageNotFound} />
     </Switch>
   )
