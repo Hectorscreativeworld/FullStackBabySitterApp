@@ -109,23 +109,26 @@ namespace sdg_react_template.Controllers
       var rv = new UserService().CreateUserData(user);
       return Ok(rv);
     }
+    [HttpPost("login")]
+    public async Task<ActionResult<User>> BabySitterLogin(User user)
+    {
+      Console.WriteLine($"data coming in{user.UserName} {user.Password}");
 
 
-    //     // NEW CHANGE create a User
-    //     var user = new User
-    //     {
-    //       UserName = User.Email,
-    //       Email = User.Email,
-    //       FullName = User.FullName,
-    //     };
+      var domainUser = _context.Users.FirstOrDefault(u => u.UserName == user.UserName);
+      if (domainUser != null)
+      {
+        var isValid = new UserService().VerifyPassword(domainUser, user.Password);
+        if (isValid)
+        {
+          var rv = new UserService().CreateUserData(domainUser);
+          return Ok(rv);
+        }
 
-    //     _context.User.Add(user);
-    //     await_context.SaveChangesAsync();
-    // //Return a token so that user can do user things
-    //     var rv = new UserService().CreateUserData(user);
-    //     return Ok(rv);
+      }
 
-    //   };
+      return NotFound();
+    }
 
 
 

@@ -9,7 +9,7 @@ class RegisterForm extends Component {
     this.state = {
       isBabySitter: false,
       isParent: false,
-      username: '',
+      userName: '',
       email: '',
       password: '',
       confirmPassword: '',
@@ -42,7 +42,7 @@ class RegisterForm extends Component {
   handleSubmit(event) {
     event.preventDefault()
     console.log(
-      this.state.username,
+      this.state.userName,
       this.state.password,
       this.state.email,
       this.state.confirmPassword
@@ -57,7 +57,7 @@ class RegisterForm extends Component {
       .post('/api/user', {
         firstName: this.state.firstName,
         lastName: this.state.lastName,
-        userName: this.state.username,
+        userName: this.state.userName,
         password: this.state.confirmPassword,
         email: this.state.email,
         isBabySitter: self.state.isBabySitter,
@@ -67,7 +67,7 @@ class RegisterForm extends Component {
         console.log(response)
         console.log('success login')
         self.props.setLoggedIn({
-          username: self.state.username,
+          userName: self.state.userName,
           email: self.state.email,
           isBabySitter: self.state.isBabySitter,
           isParent: isParent
@@ -77,7 +77,7 @@ class RegisterForm extends Component {
         console.log(error)
         console.log('Error Register User')
         alert(
-          'Failed to register user. Username or email might already exists.'
+          'Failed to register user. userName or email might already exists.'
         )
       })
   }
@@ -99,9 +99,9 @@ class RegisterForm extends Component {
             </label>
             <input
               type="Text"
-              name="username"
+              name="userName"
               onChange={this.handleInputChange}
-              value={this.state.username}
+              value={this.state.userName}
               required
             />
 

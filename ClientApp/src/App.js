@@ -2,10 +2,11 @@ import React, { useState } from 'react'
 import { Route, Switch } from 'react-router-dom'
 import LogIn from './components/LogIn'
 import Register from './components/Register'
-import BabySitterLogIn from './components/BabySitterLogIn'
-import ParentLogIn from './components/ParentLogIn'
+import BabySitterProfile from './components/BabySitterProfile'
+import ParentProfile from './components/ParentProfile'
 import MainPage from './components/MainPage'
 import ChildDashBoard from './components/ChildDashBoard'
+import SplashPage from './components/SplashPage'
 import PageNotFound from './components/PageNotFound'
 import './BabysitterLogin.css'
 
@@ -19,22 +20,29 @@ function App() {
   }
   return (
     <Switch>
-      <Route exact path="/" component={LogIn} />
-      {!loggedInUser.username && (
+      {!loggedInUser.userName && (
+        <Route
+          exact
+          path="/"
+          component={props => <LogIn {...props} setLoggedIn={setLogOn} />}
+        />
+      )}
+      {!loggedInUser.userName && (
         <Route
           exact
           path="/Register"
           component={props => <Register {...props} setLoggedIn={setLogOn} />}
         />
       )}
-      {loggedInUser.username && loggedInUser.isBabySitter && (
-        <Route exact path="/*" component={BabySitterLogIn} />
+      {loggedInUser.userName && loggedInUser.isBabySitter && (
+        <Route exact path="/*" component={BabySitterProfile} />
       )}
-      {loggedInUser.username && loggedInUser.isParent && (
-        <Route exact path="/*" component={ParentLogIn} />
+      {loggedInUser.userName && loggedInUser.isParent && (
+        <Route exact path="/*" component={ParentProfile} />
       )}
       <Route exact path="/MainPage" component={MainPage} />
       <Route exact path="/ChildDashBoard" component={ChildDashBoard} />
+      <Route exact path="/SplashPage" component={SplashPage} />
       <Route exact path="/*" component={PageNotFound} />
     </Switch>
   )

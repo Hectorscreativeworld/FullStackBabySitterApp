@@ -1,10 +1,12 @@
 import React, { Component } from 'react'
+import axios from 'axios'
+import PropTypes from 'prop-types'
 
 class BabyLogInForm extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      username: '',
+      userName: '',
       password: ''
     }
     this.handleInputChange = this.handleInputChange.bind(this)
@@ -22,20 +24,41 @@ class BabyLogInForm extends Component {
 
   handleSubmit(event) {
     event.preventDefault()
-    console.log(this.state.username, this.state.password)
+    console.log(this.state.userName, this.state.password)
+
+    var self = this
+    axios
+      .post('/api/user/login', {
+        userName: this.state.userName,
+        password: this.state.password
+      })
+      .then(function(response) {
+        console.log(response)
+        console.log('success login')
+        self.props.setLoggedIn({
+          userName: self.state.userName,
+          isBabySitter: response.data.user.isBabySitter,
+          isParent: response.data.user.isParent
+        })
+      })
+      .catch(function(error) {
+        console.log(error)
+        console.log('Error login')
+        alert('User name or Password not recognized.')
+      })
   }
 
   render() {
     return (
       <form className="login-form" onSubmit={this.handleSubmit}>
         <div className="input-container">
-          <label htmlFor="username">User Name</label>
+          <label htmlFor="userName">User Name</label>
           <input
             type="text"
-            id="username"
-            name="username"
+            id="userName"
+            name="userName"
             onChange={this.handleInputChange}
-            value={this.state.username}
+            value={this.state.userName}
             required
           />
         </div>
@@ -65,4 +88,7 @@ class BabyLogInForm extends Component {
   }
 }
 
+BabyLogInForm.propTypes = {
+  setLoggedIn: PropTypes.func.isRequired
+}
 export default BabyLogInForm
