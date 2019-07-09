@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-
+import './SplashPage.js'
+import './SplashPage.css'
 class SplashPage extends Component {
   componentDidMount() {
     this.refs.splashVideo.play()
@@ -10,7 +11,7 @@ class SplashPage extends Component {
       <section className="mainContainer">
         <header className="v-header header-container">
           <div className="fullscreen-video-wrap">
-            <video ref="splashVideo" autoplay muted loop>
+            <video ref="splashVideo" autoPlay muted loop>
               <source
                 src="https://res.cloudinary.com/dck5acco0/video/upload/v1562625593/SafeSitter/BabySitterSplashPageVideo_anqvat.mp4"
                 type="video/mp4"
@@ -18,7 +19,8 @@ class SplashPage extends Component {
             </video>
           </div>
 
-          <div className="header-overlay"> </div>
+          <div className="header-overlay" />
+
           <div className="header-content">
             <h1>Safe Sitter</h1>
             <p>The Future of BabySitting</p>
