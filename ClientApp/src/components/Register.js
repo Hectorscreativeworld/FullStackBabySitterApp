@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import Header from './Header'
 import RegisterForm from './RegisterForm'
-import PropTypes from 'prop-types'
 
 class Register extends Component {
   render() {
@@ -12,9 +11,6 @@ class Register extends Component {
       </div>
     )
   }
-}
-Register.propTypes = {
-  setLoggedIn: PropTypes.func.isRequired
 }
 
 export default Register

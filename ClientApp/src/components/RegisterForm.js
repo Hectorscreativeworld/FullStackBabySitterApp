@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import '../RegisterForm.css'
 import axios from 'axios'
-import PropTypes from 'prop-types'
+import { Redirect } from 'react-router-dom'
 
 class RegisterForm extends Component {
   constructor(props) {
@@ -14,7 +14,8 @@ class RegisterForm extends Component {
       password: '',
       confirmPassword: '',
       firstName: '',
-      lastName: ''
+      lastName: '',
+      registered: false
     }
     this.handleInputChange = this.handleInputChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -66,12 +67,9 @@ class RegisterForm extends Component {
       .then(function(response) {
         console.log(response)
         console.log('success login')
-        self.props.setLoggedIn({
-          userName: self.state.userName,
-          email: self.state.email,
-          isBabySitter: self.state.isBabySitter,
-          isParent: isParent
-        })
+        localStorage.setItem('token', response.data.token)
+        localStorage.setItem('user', JSON.stringify(response.data.user))
+        self.setState({ registered: true })
       })
       .catch(function(error) {
         console.log(error)
@@ -83,6 +81,9 @@ class RegisterForm extends Component {
   }
 
   render() {
+    if (this.state.registered) {
+      return <Redirect to="/landing" />
+    }
     return (
       <div>
         <form
@@ -191,9 +192,6 @@ class RegisterForm extends Component {
       </div>
     )
   }
-}
-RegisterForm.propTypes = {
-  setLoggedIn: PropTypes.func.isRequired
 }
 
 export default RegisterForm

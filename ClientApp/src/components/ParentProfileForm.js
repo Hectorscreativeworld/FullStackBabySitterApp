@@ -1,11 +1,7 @@
 import React, { Component } from 'react'
 import '../BabysitterLogin.css'
-import WorkDay from './workDay'
-import cashAPP from '../Images/cashAPP.png'
-import Pal_Pal from '../Images/Pal_Pal.png'
-import Venmo from '../Images/Venmo.png'
 import TodoList from './TodoList'
-const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+import axios from 'axios'
 
 class ParentProfileForm extends Component {
   constructor(props) {
@@ -16,9 +12,16 @@ class ParentProfileForm extends Component {
       aboutKidsValue: '',
       allergicValue: '',
       specialInstructionsValue: '',
-      lastNotesValue: ''
+      lastNotesValue: '',
+      todoList: []
     }
+    this.handleToDoListChange = this.handleToDoListChange.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
   }
+  handleToDoListChange(list) {
+    this.setState({ todoList: list.slice(0) })
+  }
+
   handleChange(event) {
     console.log(event.target.value)
     this.setState({ nameValue: event.target.value })
@@ -52,9 +55,60 @@ class ParentProfileForm extends Component {
   handleBtnClick(event) {
     event.preventDefault()
   }
+
+  handleSubmit(event) {
+    event.preventDefault()
+
+    const self = this
+    var user = null
+    try {
+      user = JSON.parse(localStorage.getItem('user'))
+    } catch (error) {
+      console.log(error)
+    }
+    console.log(this.state.todoList)
+    axios({
+      method: 'post',
+      url: '/api/Child',
+      data: {
+        parentId: user.id,
+        dateOfBirth: '2018-02-03T00:00:00',
+        firstName: self.state.nameValue,
+        lastName: 'TBT',
+        gender: 'TBT',
+        notes: self.state.lastNotesValue,
+        allergy: self.state.allergicValue,
+        allergyInstruction: self.state.specialInstructionsValue,
+        emergencyContactId: 3,
+        emergencyContact: '',
+        photo: '',
+        // currentStatus: '',
+        checkList: self.state.todoList.map((x, i) => {
+          return {
+            description: x.text,
+            orderSequence: i
+          }
+        })
+      },
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + localStorage.getItem('token')
+      }
+    })
+      .then(function(response) {
+        console.log(response)
+        console.log('successfully added child info')
+        self.setState({ registered: true })
+      })
+      .catch(function(error) {
+        console.log(error)
+        console.log('Error add child')
+      })
+  }
+
   render() {
     return (
-      <form className="login-form" action="" method="POST">
+      <form className="login-form" onSubmit={this.handleSubmit}>
         <hr />
         <fieldset>
           <legend>
@@ -70,7 +124,7 @@ class ParentProfileForm extends Component {
           </label>
           <input
             type="text"
-            name="name"
+            name="nameValue"
             value={this.state.nameValue}
             onChange={this.handleChange.bind(this)}
           />
@@ -79,7 +133,7 @@ class ParentProfileForm extends Component {
           </label>
           <input
             type="text"
-            name="name"
+            name="contactNumber"
             value={this.state.contactNumberValue}
             onChange={this.handleNumberChange.bind(this)}
           />
@@ -88,7 +142,7 @@ class ParentProfileForm extends Component {
           </label>
           <textarea
             type="text"
-            name="name"
+            name="kidsBio"
             value={this.state.aboutKidsValue}
             onChange={this.handleKidsChange.bind(this)}
           />
@@ -96,7 +150,7 @@ class ParentProfileForm extends Component {
             Is your little one allergic to anything?
           </label>
           <textarea
-            name="kidsBio"
+            name="allegic"
             type="text"
             value={this.state.allergicValue}
             onChange={this.handleAllergicChange.bind(this)}
@@ -106,7 +160,7 @@ class ParentProfileForm extends Component {
             Any special instructions in case of an allergic reaction?
           </label>
           <textarea
-            name="kidsBio"
+            name="specialInstructions"
             type="text"
             value={this.state.specialInstructionsValue}
             onChange={this.handleInstructionsChange.bind(this)}
@@ -116,20 +170,10 @@ class ParentProfileForm extends Component {
         <h2 className="AlmostDoneText">"Almost Done"</h2>
         <hr />
 
-        <fieldset>
-          <legend>
-            <span className="section" />
-            What days and hours do you need help with?:
-          </legend>
-          {days.map((el, key) => (
-            <WorkDay el={el} key={key} />
-          ))}
-        </fieldset>
-
         <label className="" htmlFor="checkList">
           Create a check list: Use commons to separate items.
         </label>
-        <TodoList />
+        <TodoList onChange={this.handleToDoListChange} />
 
         <label className="" htmlFor="checkList">
           Special Notes:
@@ -139,23 +183,22 @@ class ParentProfileForm extends Component {
           value={this.state.lastNotesValue}
           onChange={this.handleLastNoteChange.bind(this)}
         />
-
-        <h2>Payment Type</h2>
-        <div className="PaymentContainer">
-          <img className="cashApp" src={cashAPP} alt="cashapp" />
-          <img className="palPal" src={Pal_Pal} alt="PayPal" />
-          <img className="Venmo" src={Venmo} alt="venmoe" />
-        </div>
-        <button type="button" className="payButton">
+        <button type="submit" className="payButton">
           Submit
         </button>
 
         <hr />
         <h2 className="welcomeText">"Welcome"</h2>
-        <hr />
+        <hr className="ParentsHrYellowLineBottom" />
       </form>
     )
   }
 }
 
 export default ParentProfileForm
+
+// if[!tired[]] {
+//   keepCoding();
+// }else{
+//   drinkCoffee[];
+// }

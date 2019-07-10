@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import logo from '../Images/Future_BabySitters.png'
+import logo from '../Images/Header_Sample.png'
 class BabysitterHeader extends Component {
   render() {
     return (

@@ -3,27 +3,81 @@ import Header from './Header'
 import '../ChildDashBoard.css'
 import Safety from '../Images/Safety.png'
 import CheckMark from '../Images/Check_Sample.png'
+import axios from 'axios'
 
 class ChildDashBoard extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      childId: props.Id,
+      name: '',
+      notes: '',
+      allergy: '',
+      allergyInstruction: '',
+      emergencyContactId: 0,
+      emergencyContact: '',
+      photo: '',
+      currentStatus: '',
+      checkList: [],
+      loaded: false
+    }
+  }
+
+  componentDidMount() {
+    let user = null
+    try {
+      user = JSON.parse(localStorage.getItem('user'))
+    } catch (error) {
+      console.log(error)
+    }
+    console.log(user)
+    let self = this
+    axios
+      .get(`api/child/first/${user.id}`)
+      .then(function(response) {
+        self.setState({
+          loaded: true,
+          children: response.data
+          // name: response.data.firstName,
+
+          // notes: response.data.notes,
+          // allergy: response.data.allergy,
+          // allergyInstruction: response.data.allergyInstruction,
+          // emergencyContactId: response.data.emergencyContactId,
+          // emergencyContact: response.data.emergencyContact,
+          // photo: response.data.photo,
+          // currentStatus: response.data.currentStatus,
+          // checkList: response.data.checkList
+        })
+      })
+      .catch(function(error) {
+        console.log(error)
+      })
+  }
   render() {
+    if (this.state.loaded === false) {
+      return <div>loading....</div>
+    }
+
+    let todos = this.state.checkList.map((x, i) => {
+      return <li key={i}>{x.description}</li>
+    })
+
     return (
       <div className="d-flex align-center f-d-column">
-        <div className="mainContainer">
+        <div className="childMainContainer">
           <Header />
           <hr />
           <div className="stillAndName">
             <button id="avatar-btn" name="avatar" onClick={this.handleBtnClick}>
               Insert Image
             </button>
-            <h2>Hello I'm Milia</h2>
+
+            <h2>Hello I'm {this.state.name}</h2>
           </div>
           <div>
             <h3>Kids Bio</h3>
-            <p>
-              Lorem ipsum is placeholder text commonly used in the graphic,
-              print, and publishing industries for previewing layouts and visual
-              mockups.
-            </p>
+            <p>Needs to fixed</p>
           </div>
           <hr />
           <div className="medBag">
@@ -32,37 +86,31 @@ class ChildDashBoard extends Component {
             <img className="safetyStill" src={Safety} alt="Safety Still" />
           </div>
           <ul>
-            <l>*Peanuts</l>
+            {/* New fixed code */}
+            {this.state.children.map(child => {
+              return (
+                <li>
+                  {child.firstName} has {child.allergy}
+                </li>
+              )
+            })}
           </ul>
-          <p>Incase emergency epipe located on top of microwave.</p>
+          <p>{this.state.allergyInstruction}</p>
           <hr />
           <div className="KidsMark">
             <h2>Kids Check:</h2>
             <img className="CheckMark" src={CheckMark} alt="Check Mark Still" />
           </div>
-          <ul>
-            <li>Dinner</li>
-            <li>Dinner</li>
-            <li>Dinner</li>
-            <li>Dinner</li>
-          </ul>
+          <ul>{todos}</ul>
           <hr />
           <h2>Special Notes</h2>
           <div className="SpecialNotes">
-            <p>
-              Lorem ipsum is placeholder text commonly used in the graphic,
-              print, and publishing industries for previewing layouts and visual
-              mockups.
-            </p>
+            <p>{this.state.notes}</p>
           </div>
           <hr />
           <h2> How are things going:</h2>
           <div className="SpecialNotes">
-            <p>
-              Lorem ipsum is placeholder text commonly used in the graphic,
-              print, and publishing industries for previewing layouts and visual
-              mockups.
-            </p>
+            <p>{this.state.currentStatus}</p>
           </div>
           <div className="sendStill">
             <label htmlFor="avatar">Choose a profile picture:</label>

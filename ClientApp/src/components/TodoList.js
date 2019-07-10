@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import TodoItems from './TodoItems'
 import './TodoList.css'
+import PropTypes from 'prop-types'
 
 class TodoList extends Component {
   constructor(props) {
@@ -15,6 +16,8 @@ class TodoList extends Component {
   }
 
   addItem(e) {
+    e.preventDefault()
+
     if (this._inputElement.value !== '') {
       var newItem = {
         text: this._inputElement.value,
@@ -30,8 +33,7 @@ class TodoList extends Component {
     this._inputElement.value = ''
 
     console.log(this.state.items)
-
-    e.preventDefault()
+    this.props.onChange([...this.state.items])
   }
   deleteItem(key) {
     var filteredItems = this.state.items.filter(function(item) {
@@ -45,19 +47,18 @@ class TodoList extends Component {
     return (
       <div className="todoListMain">
         <div className="header">
-          <form onSubmit={this.addItem}>
-            <input
-              ref={a => (this._inputElement = a)}
-              placeholder="enter task"
-            />
+          <input ref={a => (this._inputElement = a)} placeholder="enter task" />
 
-            <button type="submit">add</button>
-          </form>
+          <button onClick={this.addItem}>add</button>
         </div>
         <TodoItems entries={this.state.items} delete={this.deleteItem} />
       </div>
     )
   }
+}
+
+TodoList.propTypes = {
+  onChange: PropTypes.func.isRequired
 }
 
 export default TodoList

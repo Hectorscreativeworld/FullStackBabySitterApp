@@ -1,9 +1,15 @@
 import React, { Component } from 'react'
 import Header from './Header'
 import BabyLoginForm from './BabyLogInForm'
-import PropTypes from 'prop-types'
 
 class LogIn extends Component {
+  componentDidMount() {
+    const token = localStorage.getItem('token')
+    const user = localStorage.getItem('user')
+    if (token && user) {
+      window.location.href = '/landing'
+    }
+  }
   render() {
     return (
       <div className="d-flex align-center f-d-column">
@@ -14,7 +20,4 @@ class LogIn extends Component {
   }
 }
 
-LogIn.propTypes = {
-  setLoggedIn: PropTypes.func.isRequired
-}
 export default LogIn

@@ -42,6 +42,20 @@ namespace sdg_react_template.Controllers
       return child;
     }
 
+    // GET: api/Child/5
+    [HttpGet("first/{id}")]
+    public async Task<ActionResult<List<Child>>> GetFirstChild(int id)
+    {
+      var child = _context.Children.Include(x => x.CheckList).Where(x => x.ParentId == id);
+
+      if (child == null)
+      {
+        return NotFound();
+      }
+
+      return await child.ToListAsync();
+    }
+
     // PUT: api/Child/5
     [HttpPut("{id}")]
     public async Task<IActionResult> PutChild(int id, Child child)
@@ -72,12 +86,22 @@ namespace sdg_react_template.Controllers
       return NoContent();
     }
 
+
     // POST: api/Child
     [HttpPost]
     public async Task<ActionResult<Child>> PostChild(Child child)
     {
-      _context.Children.Add(child);
-      await _context.SaveChangesAsync();
+      try
+      {
+        _context.Children.Add(child);
+        await _context.SaveChangesAsync();
+      }
+      catch (Exception e)
+      {
+        Console.WriteLine("!!!!!error" + e.ToString());
+      }
+
+
 
       return CreatedAtAction("GetChild", new { id = child.Id }, child);
     }

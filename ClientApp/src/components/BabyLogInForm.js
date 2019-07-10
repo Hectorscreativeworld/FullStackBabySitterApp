@@ -1,13 +1,14 @@
 import React, { Component } from 'react'
 import axios from 'axios'
-import PropTypes from 'prop-types'
+import { Redirect } from 'react-router-dom'
 
 class BabyLogInForm extends Component {
   constructor(props) {
     super(props)
     this.state = {
       userName: '',
-      password: ''
+      password: '',
+      registered: false
     }
     this.handleInputChange = this.handleInputChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -25,7 +26,6 @@ class BabyLogInForm extends Component {
   handleSubmit(event) {
     event.preventDefault()
     console.log(this.state.userName, this.state.password)
-
     var self = this
     axios
       .post('/api/user/login', {
@@ -35,11 +35,10 @@ class BabyLogInForm extends Component {
       .then(function(response) {
         console.log(response)
         console.log('success login')
-        self.props.setLoggedIn({
-          userName: self.state.userName,
-          isBabySitter: response.data.user.isBabySitter,
-          isParent: response.data.user.isParent
-        })
+        console.log(response.data.user)
+        localStorage.setItem('token', response.data.token)
+        localStorage.setItem('user', JSON.stringify(response.data.user))
+        self.setState({ registered: true })
       })
       .catch(function(error) {
         console.log(error)
@@ -49,6 +48,9 @@ class BabyLogInForm extends Component {
   }
 
   render() {
+    if (this.state.registered) {
+      return <Redirect to="/landing" />
+    }
     return (
       <form className="login-form" onSubmit={this.handleSubmit}>
         <div className="input-container">
@@ -77,7 +79,8 @@ class BabyLogInForm extends Component {
 
         <div className="Footer-Text">
           <div>
-            Don't have an account?<a href="https://suncoast.io/">Sign Up</a>
+            Don't have an account?
+            <a href="https://localhost:5001/Register">Sign Up</a>
           </div>
           <div className="forgot-text">
             <a href="https://suncoast.io/">Forgot your password?</a>
@@ -88,7 +91,4 @@ class BabyLogInForm extends Component {
   }
 }
 
-BabyLogInForm.propTypes = {
-  setLoggedIn: PropTypes.func.isRequired
-}
 export default BabyLogInForm

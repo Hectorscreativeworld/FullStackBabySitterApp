@@ -3,11 +3,11 @@
 }
 
 
-.mainContainer {
+.childMainContainer {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  width: 50%;
+  width: 40%;
 
 }
 
@@ -32,11 +32,13 @@
   padding: 0%;
   align-items: center;
   justify-content: space-between;
+  margin-right: 10rem;
 }
 
 .CheckMark {
-  width: 100px;
+  width: 200px;
   height: auto;
+  margin-right: 10rem;
 }
 
 .KidsMark {
