@@ -22,7 +22,7 @@ class SplashPage extends Component {
           <div className="header-overlay" />
 
           <div className="header-content">
-            <a href="https://localhost:5001/" className="SplashEnter-btn ">
+            <a href="https://localhost:5001/login" className="SplashEnter-btn ">
               Enter
             </a>
           </div>

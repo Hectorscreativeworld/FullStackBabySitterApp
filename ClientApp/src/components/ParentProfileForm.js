@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import '../BabysitterLogin.css'
 import TodoList from './TodoList'
 import axios from 'axios'
+import PropTypes from 'prop-types'
 
 class ParentProfileForm extends Component {
   constructor(props) {
@@ -13,10 +14,12 @@ class ParentProfileForm extends Component {
       allergicValue: '',
       specialInstructionsValue: '',
       lastNotesValue: '',
-      todoList: []
+      todoList: [],
+      imageUrl: ''
     }
     this.handleToDoListChange = this.handleToDoListChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
+    this.handleBtnClick = this.handleBtnClick.bind(this)
   }
   handleToDoListChange(list) {
     this.setState({ todoList: list.slice(0) })
@@ -54,6 +57,19 @@ class ParentProfileForm extends Component {
 
   handleBtnClick(event) {
     event.preventDefault()
+    window.cloudinary.openUploadWidget(
+      {
+        cloud_name: 'dck5acco0',
+        upload_preset: 'mmsxpzkt',
+        folder: 'SafeSitter/KidsPhoto'
+      },
+      (error, results) => {
+        if (error) {
+          console.log(results[0].secure_url)
+        }
+        this.setState({ imageUrl: results[0].secure_url })
+      }
+    )
   }
 
   handleSubmit(event) {
@@ -76,12 +92,13 @@ class ParentProfileForm extends Component {
         firstName: self.state.nameValue,
         lastName: 'TBT',
         gender: 'TBT',
+        bio: '',
         notes: self.state.lastNotesValue,
         allergy: self.state.allergicValue,
         allergyInstruction: self.state.specialInstructionsValue,
         emergencyContactId: 3,
         emergencyContact: '',
-        photo: '',
+        photo: self.state.imageUrl,
         // currentStatus: '',
         checkList: self.state.todoList.map((x, i) => {
           return {
@@ -99,6 +116,7 @@ class ParentProfileForm extends Component {
         console.log(response)
         console.log('successfully added child info')
         self.setState({ registered: true })
+        self.props.onCompleted(response.data)
       })
       .catch(function(error) {
         console.log(error)
@@ -116,7 +134,12 @@ class ParentProfileForm extends Component {
             Your Profile:
           </legend>
           <label htmlFor="avatar">Choose a profile picture:</label>
-          <button id="avatar-btn" name="avatar" onClick={this.handleBtnClick}>
+          <button
+            id="avatar-btn"
+            name="avatar"
+            style={{ backgroundImage: 'url(' + this.state.imageUrl + ')' }}
+            onClick={this.handleBtnClick}
+          >
             Insert Image
           </button>
           <label className="" htmlFor="name">
@@ -195,10 +218,7 @@ class ParentProfileForm extends Component {
   }
 }
 
+ParentProfileForm.propTypes = {
+  onCompleted: PropTypes.func.isRequired
+}
 export default ParentProfileForm
-
-// if[!tired[]] {
-//   keepCoding();
-// }else{
-//   drinkCoffee[];
-// }

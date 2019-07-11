@@ -1,0 +1,14 @@
+.childSummary {
+  display: flex;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border: 1px solid silver;
+}
+
+.kidsPhoto {
+  border-radius: 50%;
+  width: 7rem;
+  height: 7rem;
+  background-size: cover;
+
+}

@@ -43,8 +43,8 @@ namespace sdg_react_template.Controllers
     }
 
     // GET: api/Child/5
-    [HttpGet("first/{id}")]
-    public async Task<ActionResult<List<Child>>> GetFirstChild(int id)
+    [HttpGet("all/{id}")]
+    public async Task<ActionResult<List<Child>>> GetAll(int id)
     {
       var child = _context.Children.Include(x => x.CheckList).Where(x => x.ParentId == id);
 

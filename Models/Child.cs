@@ -12,6 +12,7 @@ namespace FullStackTheSafeSitterApp.Models
     public string FirstName { get; set; }
     public string LastName { get; set; }
     public string Gender { get; set; }
+    public string Bio { get; set; }
 
     public string Notes { get; set; }
     public string Allergy { get; set; }

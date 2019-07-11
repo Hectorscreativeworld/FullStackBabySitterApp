@@ -8,6 +8,8 @@ import MainPage from './components/MainPage'
 import ChildDashBoard from './components/ChildDashBoard'
 import SplashPage from './components/SplashPage'
 import PageNotFound from './components/PageNotFound'
+import FindABabySitter from './components/FindABabySitter'
+import ChildrenGrid from './components/ChildrenGrid'
 import './BabysitterLogin.css'
 
 function App() {
@@ -29,7 +31,8 @@ function App() {
 
   return (
     <Switch>
-      <Route exact path="/" component={props => <LogIn {...props} />} />
+      <Route exact path="/" component={SplashPage} />
+
       <Route exact path="/login" component={props => <LogIn {...props} />} />
       <Route
         exact
@@ -40,12 +43,15 @@ function App() {
         <Route exact path="/landing" component={BabySitterProfile} />
       )}
       {token && user && user.isParent && (
-        <Route exact path="/landing" component={ParentProfile} />
+        <Route exact path="/landing" component={ChildrenGrid} />
       )}
-      <Route exact path="/MainPage" component={MainPage} />
-      <Route exact path="/ChildDashBoard" component={ChildDashBoard} />
-      <Route exact path="/SplashPage" component={SplashPage} />
-      <Route exact path="/*" component={PageNotFound} />
+      {token && user && user.isParent && (
+        <Route exact path="/ChildrenGrid" component={ChildrenGrid} />
+      )}
+      {token && user && user.isParent && (
+        <Route exact path="/FindABabySitter" component={FindABabySitter} />
+      )}
+      <Route exact path="/*" component={LogIn} />
     </Switch>
   )
 }

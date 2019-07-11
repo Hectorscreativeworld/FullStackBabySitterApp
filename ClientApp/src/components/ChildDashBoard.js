@@ -3,82 +3,39 @@ import Header from './Header'
 import '../ChildDashBoard.css'
 import Safety from '../Images/Safety.png'
 import CheckMark from '../Images/Check_Sample.png'
-import axios from 'axios'
+import PropTypes from 'prop-types'
 
 class ChildDashBoard extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      childId: props.Id,
-      name: '',
-      notes: '',
-      allergy: '',
-      allergyInstruction: '',
-      emergencyContactId: 0,
-      emergencyContact: '',
-      photo: '',
-      currentStatus: '',
-      checkList: [],
-      loaded: false
-    }
-  }
-
-  componentDidMount() {
-    let user = null
-    try {
-      user = JSON.parse(localStorage.getItem('user'))
-    } catch (error) {
-      console.log(error)
-    }
-    console.log(user)
-    let self = this
-    axios
-      .get(`api/child/first/${user.id}`)
-      .then(function(response) {
-        self.setState({
-          loaded: true,
-          children: response.data
-          // name: response.data.firstName,
-
-          // notes: response.data.notes,
-          // allergy: response.data.allergy,
-          // allergyInstruction: response.data.allergyInstruction,
-          // emergencyContactId: response.data.emergencyContactId,
-          // emergencyContact: response.data.emergencyContact,
-          // photo: response.data.photo,
-          // currentStatus: response.data.currentStatus,
-          // checkList: response.data.checkList
-        })
-      })
-      .catch(function(error) {
-        console.log(error)
-      })
+  handleBtnClick = e => {
+    console.log('clicked')
   }
   render() {
-    if (this.state.loaded === false) {
-      return <div>loading....</div>
-    }
-
-    let todos = this.state.checkList.map((x, i) => {
+    const child = this.props.child
+    let todos = child.checkList.map((x, i) => {
       return <li key={i}>{x.description}</li>
     })
 
     return (
       <div className="d-flex align-center f-d-column">
         <div className="childMainContainer">
-          <Header />
+          {/* <Header /> */}
           <hr />
           <div className="stillAndName">
             <button id="avatar-btn" name="avatar" onClick={this.handleBtnClick}>
               Insert Image
             </button>
-
-            <h2>Hello I'm {this.state.name}</h2>
+            <h2>Hello I'm {child.firstName}</h2>
           </div>
           <div>
             <h3>Kids Bio</h3>
-            <p>Needs to fixed</p>
           </div>
+          <section>
+            <ul>
+              <li>
+                {child.firstName} has {child.allergy}
+              </li>
+            </ul>
+          </section>
           <hr />
           <div className="medBag">
             <h3>Kids allergy:</h3>
@@ -86,16 +43,11 @@ class ChildDashBoard extends Component {
             <img className="safetyStill" src={Safety} alt="Safety Still" />
           </div>
           <ul>
-            {/* New fixed code */}
-            {this.state.children.map(child => {
-              return (
-                <li>
-                  {child.firstName} has {child.allergy}
-                </li>
-              )
-            })}
+            <li>
+              {child.firstName} has {child.allergy}
+            </li>
           </ul>
-          <p>{this.state.allergyInstruction}</p>
+          <p>{child.allergyInstruction}</p>
           <hr />
           <div className="KidsMark">
             <h2>Kids Check:</h2>
@@ -105,12 +57,12 @@ class ChildDashBoard extends Component {
           <hr />
           <h2>Special Notes</h2>
           <div className="SpecialNotes">
-            <p>{this.state.notes}</p>
+            <p>{child.notes}</p>
           </div>
           <hr />
           <h2> How are things going:</h2>
           <div className="SpecialNotes">
-            <p>{this.state.currentStatus}</p>
+            <p>{child.currentStatus}</p>
           </div>
           <div className="sendStill">
             <label htmlFor="avatar">Choose a profile picture:</label>
@@ -132,4 +84,7 @@ class ChildDashBoard extends Component {
   }
 }
 
+ChildDashBoard.propTypes = {
+  child: PropTypes.object.isRequired
+}
 export default ChildDashBoard
