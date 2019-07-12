@@ -1,8 +1,15 @@
 .childSummary {
   display: flex;
+  flex-direction: row;
+  align-self: auto;
   padding-top: 10px;
   padding-bottom: 10px;
   border: 1px solid silver;
+  padding-right: 0%;
+
+
+
+
 }
 
 .kidsPhoto {
@@ -10,5 +17,43 @@
   width: 7rem;
   height: 7rem;
   background-size: cover;
+  padding: 0%;
 
+}
+
+
+.KidsMainText {}
+
+.kidsBio {
+  display: -webkit-box;
+  /* autoprefixer: off */
+  -webkit-box-orient: vertical;
+  /* autoprefixer: on */
+  -webkit-line-clamp: 3;
+  max-width: 220px;
+  overflow: hidden;
+  /* white-space: nowrap; */
+  /* text-overflow: ellipsis; */
+
+}
+
+.kidsParagraph,
+.kidsWrapper {
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+
+}
+
+
+.kidsName {
+  margin-left: .5rem;
+  margin-top: .5rem;
+  padding-bottom: 0%;
+  font-size: 2rem;
+}
+
+.linkChildInfo {
+  margin-top: 2.5rem;
+  padding: 0%;
 }

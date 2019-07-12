@@ -79,8 +79,10 @@ class ChildrenGrid extends Component {
     return (
       <div>
         <Header />
+
         <button onClick={this.onAddChild}>Add Child</button>
         <button onClick={this.onClosedDetails}>Children Page</button>
+        <hr />
         {childrenRows}
         {childrenRows}
         {(this.state.currentView === 'ADDCHILD' ||

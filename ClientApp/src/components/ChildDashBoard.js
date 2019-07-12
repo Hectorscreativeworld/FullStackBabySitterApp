@@ -30,11 +30,9 @@ class ChildDashBoard extends Component {
             <h3>Kids Bio</h3>
           </div>
           <section>
-            <ul>
-              <li>
-                {child.firstName} has {child.allergy}
-              </li>
-            </ul>
+            <p>
+              {child.firstName} {child.bio}
+            </p>
           </section>
           <hr />
           <div className="medBag">
@@ -59,7 +57,7 @@ class ChildDashBoard extends Component {
           <div className="SpecialNotes">
             <p>{child.notes}</p>
           </div>
-          <hr />
+          {/* <hr />
           <h2> How are things going:</h2>
           <div className="SpecialNotes">
             <p>{child.currentStatus}</p>
@@ -77,7 +75,7 @@ class ChildDashBoard extends Component {
           </div>
           <hr />
           <h1 className="KidsAwesomeText">"Kids are Awesome"</h1>
-          <hr className="lastYellowLine" />
+          <hr className="lastYellowLine" /> */}
         </div>
       </div>
     )

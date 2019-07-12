@@ -91,15 +91,14 @@ class ParentProfileForm extends Component {
         dateOfBirth: '2018-02-03T00:00:00',
         firstName: self.state.nameValue,
         lastName: 'TBT',
-        gender: 'TBT',
-        bio: '',
+        gender: '',
+        bio: self.state.aboutKidsValue,
         notes: self.state.lastNotesValue,
         allergy: self.state.allergicValue,
         allergyInstruction: self.state.specialInstructionsValue,
         emergencyContactId: 3,
         emergencyContact: '',
         photo: self.state.imageUrl,
-        // currentStatus: '',
         checkList: self.state.todoList.map((x, i) => {
           return {
             description: x.text,
@@ -107,6 +106,7 @@ class ParentProfileForm extends Component {
           }
         })
       },
+
       headers: {
         'Content-Type': 'application/json',
         Authorization: 'Bearer ' + localStorage.getItem('token')
@@ -165,7 +165,7 @@ class ParentProfileForm extends Component {
           </label>
           <textarea
             type="text"
-            name="kidsBio"
+            name="Bio"
             value={this.state.aboutKidsValue}
             onChange={this.handleKidsChange.bind(this)}
           />
