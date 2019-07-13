@@ -66,6 +66,17 @@
   margin-bottom: 20%;
 }
 
-.KidsAwesomeText {
-  text-align: center;
+.childParagraph {
+  display: flex;
+
+  text-align: justify;
+  width: 30%;
+}
+
+.helloText {
+  padding: .5rem;
+}
+
+.noteText {
+  font-size: 1rem;
 }

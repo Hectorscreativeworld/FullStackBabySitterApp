@@ -54,12 +54,12 @@ export class NavMenu extends Component {
                 </NavItem>
                 <NavItem>
                   <NavLink tag={Link} className="text-dark" to="/ChildrenGrid">
-                    Children
+                    Find a Babysitter
                   </NavLink>
                 </NavItem>
                 <NavItem>
-                  <NavLink tag={Link} className="text-dark" to="/fetch-data">
-                    Fetch data
+                  <NavLink tag={Link} className="text-dark" to="/LogIn">
+                    Logout
                   </NavLink>
                 </NavItem>
               </ul>

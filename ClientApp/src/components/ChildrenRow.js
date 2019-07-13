@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import './ChildRow.css'
+import { triggerAsyncId } from 'async_hooks'
 
 class ChildrenRow extends Component {
   handleOnClick = e => {
@@ -14,7 +15,10 @@ class ChildrenRow extends Component {
       return <li key={i}>{x.description}</li>
     })
     return (
-      <div className="childSummary" onClick={this.handleOnClick}>
+      <div
+        className="childSummary d-flex align-center f-d-column"
+        onClick={this.handleOnClick}
+      >
         <section className="KidsMainText">
           <div className="kidsWrapper">
             <div
@@ -31,25 +35,6 @@ class ChildrenRow extends Component {
               </div>
             </div>
           </div>
-          <hr />
-          <h2> How are things going:</h2>
-          <div className="SpecialNotes">
-            <p>{child.currentStatus}</p>
-          </div>
-          <div className="sendStill">
-            <label htmlFor="avatar">Choose a profile picture:</label>
-
-            <input
-              type="file"
-              id="avatar"
-              name="avatar"
-              accept="image/png, image/jpeg"
-            />
-            <button>SUBMIT</button>
-          </div>
-          <hr />
-          <h1 className="KidsAwesomeText">"Kids are Awesome"</h1>
-          <hr className="lastYellowLine" />
         </section>
       </div>
     )

@@ -17,65 +17,52 @@ class ChildDashBoard extends Component {
 
     return (
       <div className="d-flex align-center f-d-column">
-        <div className="childMainContainer">
-          {/* <Header /> */}
-          <hr />
-          <div className="stillAndName">
-            <button id="avatar-btn" name="avatar" onClick={this.handleBtnClick}>
-              Insert Image
-            </button>
-            <h2>Hello I'm {child.firstName}</h2>
-          </div>
-          <div>
-            <h3>Kids Bio</h3>
-          </div>
-          <section>
-            <p>
-              {child.firstName} {child.bio}
-            </p>
-          </section>
-          <hr />
-          <div className="medBag">
-            <h3>Kids allergy:</h3>
+        <div className="childMainContainer d-flex align-center f-d-column">
+          <div className="allAboutKid d-flex align-center f-d-column">
+            <div className="stillAndName ">
+              <button
+                id="avatar-btn"
+                name="avatar"
+                onClick={this.handleBtnClick}
+              >
+                Insert Image
+              </button>
+              <h2 className="helloText">Hello I'm {child.firstName}</h2>
+            </div>
+            <div>
+              <h3>A little bit about {child.firstName}</h3>
+            </div>
+            <section className="childParagraph d-flex align-center f-d-column">
+              <p>{child.bio}</p>
+            </section>
 
-            <img className="safetyStill" src={Safety} alt="Safety Still" />
-          </div>
-          <ul>
-            <li>
-              {child.firstName} has {child.allergy}
-            </li>
-          </ul>
-          <p>{child.allergyInstruction}</p>
-          <hr />
-          <div className="KidsMark">
-            <h2>Kids Check:</h2>
-            <img className="CheckMark" src={CheckMark} alt="Check Mark Still" />
-          </div>
-          <ul>{todos}</ul>
-          <hr />
-          <h2>Special Notes</h2>
-          <div className="SpecialNotes">
-            <p>{child.notes}</p>
-          </div>
-          {/* <hr />
-          <h2> How are things going:</h2>
-          <div className="SpecialNotes">
-            <p>{child.currentStatus}</p>
-          </div>
-          <div className="sendStill">
-            <label htmlFor="avatar">Choose a profile picture:</label>
+            <div className="medBag">
+              <h3>{child.firstName} allergy:</h3>
 
-            <input
-              type="file"
-              id="avatar"
-              name="avatar"
-              accept="image/png, image/jpeg"
-            />
-            <button>SUBMIT</button>
+              <img className="safetyStill" src={Safety} alt="Safety Still" />
+            </div>
+            <ul>
+              <li>
+                {child.firstName} has {child.allergy}
+              </li>
+            </ul>
+            <p>{child.allergyInstruction}</p>
+
+            <div className="KidsMark">
+              <h2>Kids Check:</h2>
+              <img
+                className="CheckMark"
+                src={CheckMark}
+                alt="Check Mark Still"
+              />
+            </div>
+            <ul>{todos}</ul>
+
+            <h2>Special Notes</h2>
+            <div className="SpecialNotes">
+              <p className="noteText">{child.notes}</p>
+            </div>
           </div>
-          <hr />
-          <h1 className="KidsAwesomeText">"Kids are Awesome"</h1>
-          <hr className="lastYellowLine" /> */}
         </div>
       </div>
     )

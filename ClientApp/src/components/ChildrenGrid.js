@@ -79,22 +79,47 @@ class ChildrenGrid extends Component {
     return (
       <div>
         <Header />
+        <div className="addAndChildButtons d-flex align-center f-d-column">
+          <button className="addKidButton" Click={this.onAddChild}>
+            Add Child
+          </button>
+          <button className="childrenPageButton" onClick={this.onClosedDetails}>
+            Children Page
+          </button>
+        </div>
 
-        <button onClick={this.onAddChild}>Add Child</button>
-        <button onClick={this.onClosedDetails}>Children Page</button>
-        <hr />
         {childrenRows}
-        {childrenRows}
-        {(this.state.currentView === 'ADDCHILD' ||
-          this.state.loaded === false) && (
-          <ParentProfile onCompleted={this.onAddedChild} />
-        )}
-        {this.state.currentView === 'CHILDDETAILS' && (
-          <ChildDashBoard
-            onClosed={this.onClosedDetails}
-            child={this.state.currentChild}
-          />
-        )}
+        <div className="kidsStatPage d-flex align-center f-d-column">
+          <h2> How are things going:</h2>
+          <div className="SpecialNotes">
+            {/* <p>{child.currentStatus}</p> */}
+          </div>
+          <div className="sendStill">
+            <label htmlFor="avatar">Choose a profile picture:</label>
+
+            <input
+              type="file"
+              id="avatar"
+              name="avatar"
+              accept="image/png, image/jpeg"
+            />
+            <button>SUBMIT</button>
+          </div>
+
+          <div className="KidsAwesomeText">
+            <h1>"Kids are Awesome"</h1>
+            {(this.state.currentView === 'ADDCHILD' ||
+              this.state.loaded === false) && (
+              <ParentProfile onCompleted={this.onAddedChild} />
+            )}
+          </div>
+          {this.state.currentView === 'CHILDDETAILS' && (
+            <ChildDashBoard
+              onClosed={this.onClosedDetails}
+              child={this.state.currentChild}
+            />
+          )}
+        </div>
       </div>
     )
   }

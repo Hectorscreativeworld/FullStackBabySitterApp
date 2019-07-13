@@ -3,14 +3,14 @@ import { Route, Switch } from 'react-router-dom'
 import LogIn from './components/LogIn'
 import Register from './components/Register'
 import BabySitterProfile from './components/BabySitterProfile'
-import ParentProfile from './components/ParentProfile'
-import MainPage from './components/MainPage'
-import ChildDashBoard from './components/ChildDashBoard'
 import SplashPage from './components/SplashPage'
-import PageNotFound from './components/PageNotFound'
 import FindABabySitter from './components/FindABabySitter'
 import ChildrenGrid from './components/ChildrenGrid'
 import './BabysitterLogin.css'
+// import ParentProfile from './components/ParentProfile'
+// import MainPage from './components/MainPage'
+// import ChildDashBoard from './components/ChildDashBoard'
+// import PageNotFound from './components/PageNotFound'
 
 function App() {
   // const displayName = App.name
@@ -32,7 +32,6 @@ function App() {
   return (
     <Switch>
       <Route exact path="/" component={SplashPage} />
-
       <Route exact path="/login" component={props => <LogIn {...props} />} />
       <Route
         exact
@@ -48,6 +47,7 @@ function App() {
       {token && user && user.isParent && (
         <Route exact path="/ChildrenGrid" component={ChildrenGrid} />
       )}
+      ~
       {token && user && user.isParent && (
         <Route exact path="/FindABabySitter" component={FindABabySitter} />
       )}
