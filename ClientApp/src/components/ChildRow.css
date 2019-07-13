@@ -4,12 +4,8 @@
   align-self: auto;
   padding-top: 10px;
   padding-bottom: 10px;
-  border: 1px solid silver;
+
   padding-right: 0%;
-
-
-
-
 }
 
 .kidsPhoto {
@@ -45,6 +41,10 @@
 
 }
 
+.kidsWrapper {
+  border-top: 1px solid purple;
+}
+
 
 .kidsName {
   margin-left: .5rem;
@@ -56,4 +56,21 @@
 .linkChildInfo {
   margin-top: 2.5rem;
   padding: 0%;
+}
+
+
+.addKidButton {
+  margin-bottom: 1rem;
+}
+
+
+.KidsAwesomeText {
+  text-align: center;
+}
+
+.KidsAwesomeText {
+  margin-top: 3rem;
+  margin-bottom: 3rem;
+  border-top: 8px solid #EBC23E;
+  border-bottom: 8px solid #EBC23E;
 }
