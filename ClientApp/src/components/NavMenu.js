@@ -60,7 +60,7 @@ export class NavMenu extends Component {
                 </NavItem>
                 <NavItem>
                   <NavLink tag={Link} className="text-dark" to="/ChildrenGrid">
-                    Your Profile
+                    Find a job
                   </NavLink>
                 </NavItem>
                 <NavItem>

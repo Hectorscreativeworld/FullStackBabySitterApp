@@ -9,6 +9,12 @@ namespace FullStackTheSafeSitterApp.Models
     public int UserId { get; set; }
 
     public virtual User User { get; set; }
+
+    public string Photo { get; set; }
+    public decimal HourlyRate { get; set; }
+    public string TheBioInformation { get; set; }
+    public string PaymentType { get; set; }
+
     public float? MondayFrom { get; set; }
     public float? MondayTo { get; set; }
     public float? TuesdayFrom { get; set; }
@@ -23,10 +29,7 @@ namespace FullStackTheSafeSitterApp.Models
     public float? SaturdayTo { get; set; }
     public float? SundayFrom { get; set; }
     public float? SundayTo { get; set; }
-    public string Photo { get; set; }
-    public decimal HourlyRate { get; set; }
-    public string TheBioInformation { get; set; }
-    public string PaymentType { get; set; }
+
 
 
 

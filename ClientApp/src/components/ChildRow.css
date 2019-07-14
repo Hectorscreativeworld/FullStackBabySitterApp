@@ -18,7 +18,7 @@
 }
 
 
-.KidsMainText {}
+
 
 .kidsBio {
   display: -webkit-box;
@@ -64,13 +64,12 @@
 }
 
 
-.KidsAwesomeText {
-  text-align: center;
-}
+
 
 .KidsAwesomeText {
   margin-top: 3rem;
   margin-bottom: 3rem;
-  border-top: 8px solid #EBC23E;
-  border-bottom: 8px solid #EBC23E;
+
+
+  text-align: center;
 }

@@ -10,6 +10,7 @@ namespace FullStackTheSafeSitterApp.Models
     public string Password { get; set; }
     public bool IsParent { get; set; }
     public bool IsBabySitter { get; set; }
+    public int Phone { get; set; }
 
   }
 }

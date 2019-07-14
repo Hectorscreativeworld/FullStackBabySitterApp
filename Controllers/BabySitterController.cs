@@ -26,7 +26,61 @@ namespace sdg_react_template.Controllers
     [HttpGet]
     public async Task<ActionResult<IEnumerable<BabySitter>>> GetBabySitters()
     {
-      return await _context.BabySitters.ToListAsync();
+      return await _context.BabySitters.Include(x => x.User).ToListAsync();
+    }
+
+    // GET: api/BabySitter
+    [HttpGet("jobs/{id}")]
+    public async Task<ActionResult<IEnumerable<BabySittingJob>>> GetBabySittingJobs(int id)
+    {
+      var jobs = await _context.BabySittingJobs.Where(x => x.BabysitterID == id).Include(x => x.BabySitter).Include(y => y.Child).ToListAsync();
+      if (jobs == null)
+      {
+        return NotFound();
+      }
+      return jobs;
+    }
+
+    // GET: api/BabySitter
+    [HttpGet("job/{id}")]
+    public async Task<ActionResult<BabySittingJob>> GetBabySittingJob(int id)
+    {
+      var jobs = await _context.BabySittingJobs.Where(x => x.Id == id).Include(x => x.BabySitter).Include(y => y.Child).ToListAsync();
+      if (jobs == null || jobs.Count < 1)
+      {
+        return NotFound();
+      }
+      return jobs.First();
+    }
+
+    // PUT: api/Babysitter/updateChildStatus/5
+    [HttpPatch("updateChildStatus/{childId}")]
+    public async Task<IActionResult> UpdateChildStatus(int childId, Child child)
+    {
+      if (childId != child.Id)
+      {
+        return BadRequest();
+      }
+
+      var actualChild = _context.Children.FirstOrDefault(x => x.Id == childId);
+      try
+      {
+        actualChild.CurrentStatus = child.CurrentStatus;
+        await _context.SaveChangesAsync();
+      }
+      catch (DbUpdateConcurrencyException)
+      {
+        if (actualChild == null)
+        {
+          return NotFound();
+        }
+        else
+        {
+          throw;
+        }
+      }
+
+      return NoContent();
     }
 
     // GET: api/BabySitter/5
@@ -34,6 +88,20 @@ namespace sdg_react_template.Controllers
     public async Task<ActionResult<BabySitter>> GetBabySitter(int id)
     {
       var babySitter = await _context.BabySitters.FindAsync(id);
+
+      if (babySitter == null)
+      {
+        return NotFound();
+      }
+
+      return babySitter;
+    }
+
+    // GET: api/BabySitter/5
+    [HttpGet("userid/{id}")]
+    public ActionResult<BabySitter> GetBabySitterByUserId(int id)
+    {
+      var babySitter = _context.BabySitters.FirstOrDefault(bs => bs.UserId == id);
 
       if (babySitter == null)
       {
@@ -83,27 +151,21 @@ namespace sdg_react_template.Controllers
       return CreatedAtAction("GetBabySitter", new { id = babySitter.Id }, babySitter);
     }
 
+    // POST: api/BabySitter/Job
+    [HttpPost("job")]
+    public async Task<ActionResult<BabySittingJob>> PostBabySitterJob(BabySittingJob babySittingJob)
+    {
+      _context.BabySittingJobs.Add(babySittingJob);
+      await _context.SaveChangesAsync();
+
+      return CreatedAtAction("GetBabySittingJob", new { id = babySittingJob.Id }, babySittingJob);
+    }
+
     [HttpPost("login")]
     public async Task<ActionResult> LoginIn()
     {
       return Ok();
     }
-
-    // [HttpPost("register")]
-    // public async Task<ActionResult> Register([FromBody] RegisterViewModel registerInformation)
-    // {
-    //   //check if the user exists
-    //   var exits = await _context.Users.AnyAsync(user => user.UserName == registerInformation.Email);
-    //   // if exists, return an error
-    //   if (exits)
-    //   {
-    //     return BadRequest(new { message = "User with the email already exists" });
-    //   }
-    //   //else create a user
-    //   // return a token so the user can do user things
-    //   return Ok(registerInformation);
-    // }
-
 
 
 

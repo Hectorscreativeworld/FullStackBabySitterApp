@@ -2,11 +2,11 @@ import React from 'react'
 import { Route, Switch } from 'react-router-dom'
 import LogIn from './components/LogIn'
 import Register from './components/Register'
-import BabySitterProfile from './components/BabySitterProfile'
 import SplashPage from './components/SplashPage'
 import FindABabySitter from './components/FindABabySitter'
-import ChildrenGrid from './components/ChildrenGrid'
+import ParentDashBoard from './components/ParentDashBoard'
 import './BabysitterLogin.css'
+import BabySitterDashBoard from './components/BabySitterDashBoard'
 // import ParentProfile from './components/ParentProfile'
 // import MainPage from './components/MainPage'
 // import ChildDashBoard from './components/ChildDashBoard'
@@ -39,13 +39,13 @@ function App() {
         component={props => <Register {...props} />}
       />
       {token && user && user.isBabySitter && (
-        <Route exact path="/landing" component={BabySitterProfile} />
+        <Route exact path="/landing" component={BabySitterDashBoard} />
       )}
       {token && user && user.isParent && (
-        <Route exact path="/landing" component={ChildrenGrid} />
+        <Route exact path="/landing" component={ParentDashBoard} />
       )}
       {token && user && user.isParent && (
-        <Route exact path="/ChildrenGrid" component={ChildrenGrid} />
+        <Route exact path="/ChildrenGrid" component={ParentDashBoard} />
       )}
       ~
       {token && user && user.isParent && (

@@ -11,6 +11,7 @@ class RegisterForm extends Component {
       isParent: false,
       userName: '',
       email: '',
+      phone: '',
       password: '',
       confirmPassword: '',
       firstName: '',
@@ -48,19 +49,20 @@ class RegisterForm extends Component {
       this.state.email,
       this.state.confirmPassword
     )
-    var self = this
-    var isBabySitter = this.state.isBabySitter
-    var isParent = this.state.isParent
+    let self = this
+    let isBabySitter = this.state.isBabySitter
+    let isParent = this.state.isParent
     if (isBabySitter === false && isParent === false) {
       isParent = true
     }
     axios
       .post('/api/user', {
-        firstName: this.state.firstName,
-        lastName: this.state.lastName,
-        userName: this.state.userName,
-        password: this.state.confirmPassword,
-        email: this.state.email,
+        firstName: self.state.firstName,
+        lastName: self.state.lastName,
+        userName: self.state.userName,
+        password: self.state.confirmPassword,
+        email: self.state.email,
+        phone: self.state.phone,
         isBabySitter: self.state.isBabySitter,
         isParent: isParent
       })
@@ -135,6 +137,17 @@ class RegisterForm extends Component {
               name="email"
               onChange={this.handleInputChange}
               value={this.state.email}
+              required
+            />
+
+            <label className="" htmlFor="Phone">
+              Phone:
+            </label>
+            <input
+              type="phone"
+              name="phone"
+              onChange={this.handleInputChange}
+              value={this.state.phone}
               required
             />
 

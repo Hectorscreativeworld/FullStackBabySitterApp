@@ -7,7 +7,7 @@ import Header from './Header'
 import Footer from './Footer'
 import { Button } from 'reactstrap'
 
-class ChildrenGrid extends Component {
+class ParentDashBoard extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -136,4 +136,4 @@ class ChildrenGrid extends Component {
   }
 }
 
-export default ChildrenGrid
+export default ParentDashBoard
