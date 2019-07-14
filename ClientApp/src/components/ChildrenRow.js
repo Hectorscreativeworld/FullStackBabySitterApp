@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import './ChildRow.css'
-import { triggerAsyncId } from 'async_hooks'
+// import { triggerAsyncId } from 'async_hooks'
 
 class ChildrenRow extends Component {
   handleOnClick = e => {
