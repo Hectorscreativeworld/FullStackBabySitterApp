@@ -16,51 +16,57 @@ class ChildDashBoard extends Component {
     })
 
     return (
-      <div className="d-flex align-center f-d-column">
-        <div className="childMainContainer d-flex align-center f-d-column">
-          <div className="allAboutKid d-flex align-center f-d-column">
-            <div className="stillAndName ">
-              <div
-                className="kidsPhoto"
-                style={{
-                  backgroundImage: 'url(' + this.props.child.photo + ')'
-                }}
-              />
-              <h2 className="helloText">Hello I'm {child.firstName}</h2>
-            </div>
-            <div>
-              <h3>A little bit about {child.firstName}</h3>
-            </div>
-            <section className="childParagraph d-flex align-center f-d-column">
-              <p>{child.bio}</p>
-            </section>
+      <div className="allAboutKid d-flex align-center f-d-column">
+        <div className="stillAndName">
+          <div
+            className="kidsPhoto"
+            style={{
+              backgroundImage: 'url(' + this.props.child.photo + ')'
+            }}
+          />
+          <h2 className="helloText">Hello I'm {child.firstName}</h2>
+        </div>
+        <div>
+          <h3>A little bit about {child.firstName}</h3>
+        </div>
+        <section className="childParagraph d-flex align-center f-d-column">
+          <p>{child.bio}</p>
+        </section>
 
-            <div className="medBag">
-              <h3>{child.firstName} allergy:</h3>
-
-              <img className="safetyStill" src={Safety} alt="Safety Still" />
-            </div>
+        <div className="AllergyMainContainer">
+          <div className="allergyInfo listItems">
+            <h3>{child.firstName} allergy:</h3>
             <ul>
               <li>
                 {child.firstName} has {child.allergy}
               </li>
             </ul>
+            <h3>Emergency:</h3>
             <p>{child.allergyInstruction}</p>
+            <p>
+              <strong>Emergency Contact:</strong>
+            </p>
+          </div>
+          <div className="medBag">
+            <img className="safetyStill" src={Safety} alt="Safety Still" />
+          </div>
+        </div>
 
-            <div className="KidsMark">
-              <h2>Kids Check:</h2>
-              <img
-                className="CheckMark"
-                src={CheckMark}
-                alt="Check Mark Still"
-              />
-            </div>
+        <div className="mainCheckListContainer">
+          <div className="KidsMark listItems">
+            <h2>Kids Check:</h2>
             <ul>{todos}</ul>
+          </div>
 
-            <h2>Special Notes</h2>
-            <div className="SpecialNotes">
-              <p className="noteText">{child.notes}</p>
-            </div>
+          <div className="checkMarkContainer">
+            <img className="CheckMark" src={CheckMark} alt="Check Mark Still" />
+          </div>
+        </div>
+
+        <h2>Special Instructions</h2>
+        <div className="postedImage">
+          <div className="postedText">
+            <p>{child.notes}</p>
           </div>
         </div>
       </div>

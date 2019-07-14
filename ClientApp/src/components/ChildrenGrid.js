@@ -4,6 +4,8 @@ import ChildrenRow from './ChildrenRow'
 import ChildDashBoard from './ChildDashBoard'
 import axios from 'axios'
 import Header from './Header'
+import Footer from './Footer'
+import { Button } from 'reactstrap'
 
 class ChildrenGrid extends Component {
   constructor(props) {
@@ -90,17 +92,6 @@ class ChildrenGrid extends Component {
             <div className="SpecialNotes">
               {/* <p>{child.currentStatus}</p> */}
             </div>
-            <div className="sendStill">
-              <label htmlFor="avatar">Choose a profile picture:</label>
-
-              <input
-                type="file"
-                id="avatar"
-                name="avatar"
-                accept="image/png, image/jpeg"
-              />
-              <button>SUBMIT</button>
-            </div>
           </div>
         </div>
       )
@@ -112,12 +103,22 @@ class ChildrenGrid extends Component {
       <div>
         <Header />
         <div className="addAndChildButtons d-flex align-center f-d-column">
-          <button className="addKidButton" onClick={this.onAddChild}>
+          <Button
+            className="addKidButton"
+            outline
+            color="primary"
+            onClick={this.onAddChild}
+          >
             Add Child
-          </button>
-          <button className="childrenPageButton" onClick={this.onClosedDetails}>
+          </Button>
+          <Button
+            className="childrenPageButton"
+            outline
+            color="primary"
+            onClick={this.onClosedDetails}
+          >
             Children Page
-          </button>
+          </Button>
         </div>
 
         {this.renderGrid()}
@@ -129,6 +130,7 @@ class ChildrenGrid extends Component {
             child={this.state.currentChild}
           />
         )}
+        <Footer fixed="bottom" />
       </div>
     )
   }

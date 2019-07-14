@@ -66,14 +66,20 @@
 
 .SplashEnter-btn {
 
-  color: #F862FB;
+  color: #ffffff;
   text-decoration: none;
   display: flex;
   font-size: 3rem;
   align-self: flex-end;
   text-decoration: none;
-  background: #ffff;
+  background: #C71B7E;
   border-radius: 25px;
   padding-left: 2rem;
   padding-right: 2rem;
+}
+
+a:hover {
+  color: white;
+  background: #056CB0;
+  text-decoration: none;
 }
