@@ -31,14 +31,20 @@ export class NavMenu extends Component {
 
   render() {
     return (
-      <header>
+      <header className="navHeader">
         <Navbar
-          className="navbar-expand-sm navbar-toggleable-sm ng-white border-bottom box-shadow mb-3"
+          className="navbar-expand-sm navbar-toggleable-sm ng-white border-bottom box-shadow mb-3 sticky"
           light
         >
           <Container>
-            <NavbarBrand tag={Link} to="/">
-              Safe Sitter
+            <NavbarBrand
+              id="navBarBrand"
+              class="navBarMainText"
+              tag={Link}
+              to="/"
+            >
+              <span style={{ color: '#056CB0' }}>Safe</span>{' '}
+              <span style={{ color: '#C71B7E' }}>Sitter</span>
             </NavbarBrand>
             <NavbarToggler onClick={this.toggleNavbar} className="mr-2" />
             <Collapse

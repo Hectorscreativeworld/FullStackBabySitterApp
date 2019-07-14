@@ -41,6 +41,7 @@ textarea {
 .logo-container {
   display: flex;
   justify-content: center;
+  margin-top: 3.5rem;
 }
 
 .header-still {
@@ -65,7 +66,6 @@ label {
   margin-bottom: 1rem;
 
 }
-
 
 .Footer-Text {
   display: flex;
