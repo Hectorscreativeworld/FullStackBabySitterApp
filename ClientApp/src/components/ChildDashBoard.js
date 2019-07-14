@@ -20,13 +20,12 @@ class ChildDashBoard extends Component {
         <div className="childMainContainer d-flex align-center f-d-column">
           <div className="allAboutKid d-flex align-center f-d-column">
             <div className="stillAndName ">
-              <button
-                id="avatar-btn"
-                name="avatar"
-                onClick={this.handleBtnClick}
-              >
-                Insert Image
-              </button>
+              <div
+                className="kidsPhoto"
+                style={{
+                  backgroundImage: 'url(' + this.props.child.photo + ')'
+                }}
+              />
               <h2 className="helloText">Hello I'm {child.firstName}</h2>
             </div>
             <div>

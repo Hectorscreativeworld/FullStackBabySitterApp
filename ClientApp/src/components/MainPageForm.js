@@ -28,7 +28,7 @@ class MainPageForm extends Component {
             Contact Number:
           </label>
           <input type="text" name="name" value="" />
-          <label className="" fhtmlFor="bio">
+          <label className="" htmlFor="bio">
             Tells us about your little one
           </label>
 
@@ -77,9 +77,7 @@ class MainPageForm extends Component {
           Submit
         </button>
 
-        <hr />
         <h2 className="welcomeText">"Welcome"</h2>
-        <hr />
       </form>
     )
   }

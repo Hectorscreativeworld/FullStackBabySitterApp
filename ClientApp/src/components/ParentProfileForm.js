@@ -127,7 +127,6 @@ class ParentProfileForm extends Component {
   render() {
     return (
       <form className="login-form" onSubmit={this.handleSubmit}>
-        <hr />
         <fieldset>
           <legend>
             <span className="section" />
@@ -189,12 +188,11 @@ class ParentProfileForm extends Component {
             onChange={this.handleInstructionsChange.bind(this)}
           />
         </fieldset>
-        <hr />
+
         <h2 className="AlmostDoneText">"Almost Done"</h2>
-        <hr />
 
         <label className="" htmlFor="checkList">
-          Create a check list: Use commons to separate items.
+          Create a check list:
         </label>
         <TodoList onChange={this.handleToDoListChange} />
 
@@ -210,9 +208,7 @@ class ParentProfileForm extends Component {
           Submit
         </button>
 
-        <hr />
         <h2 className="welcomeText">"Welcome"</h2>
-        <hr className="ParentsHrYellowLineBottom" />
       </form>
     )
   }
