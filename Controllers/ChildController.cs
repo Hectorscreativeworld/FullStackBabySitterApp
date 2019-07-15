@@ -25,7 +25,7 @@ namespace sdg_react_template.Controllers
     [HttpGet]
     public async Task<ActionResult<IEnumerable<Child>>> GetChildren()
     {
-      return await _context.Children.ToListAsync();
+      return await _context.Children.Include(x => x.Parent).ToListAsync();
     }
 
     // GET: api/Child/5

@@ -1,12 +1,15 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace FullStackTheSafeSitterApp.Models
 {
   public class Child
   {
     public int Id { get; set; }
+    // [ForeignKey("Parent")]
     public int ParentId { get; set; }
+    public Parent Parent { get; set; }
     public DateTime DateOfBirth { get; set; } = DateTime.Now;
 
     public string FirstName { get; set; }

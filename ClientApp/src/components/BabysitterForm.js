@@ -198,13 +198,13 @@ class BabySitterForm extends Component {
           />
 
           <label className="" htmlFor="email">
-            Contact Number:
+            Email:
           </label>
           <input
             type="email"
             name="email"
             value={this.state.email}
-            onChange={this.handleBabyContactChange.bind(this)}
+            onChange={this.handleChange}
           />
 
           <label className="" htmlFor="theBioInformation}">

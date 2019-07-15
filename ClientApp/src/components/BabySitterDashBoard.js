@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import BabySitterProfile from './BabySitterProfile'
-import ChildrenRow from './ChildrenRow'
-import ChildDashBoard from './ChildDashBoard'
+import AddJob from './AddJob'
 import axios from 'axios'
 import Header from './Header'
 import Footer from './Footer'
@@ -21,17 +20,22 @@ class BabySitterDashBoard extends Component {
     let user = null
     try {
       user = JSON.parse(localStorage.getItem('user'))
+      this.setState({
+        phone: user.phone,
+        email: user.email,
+        fullName: user.firstName + ' ' + user.lastName
+      })
     } catch (error) {
       console.log(error)
     }
     console.log(user)
     let self = this
     axios
-      .get(`api/child/all/${user.id}`)
+      .get(`api/babysitter/userid/${user.id}`)
       .then(function(response) {
         self.setState({
           loaded: true,
-          children: response.data
+          babysitter: response.data
         })
       })
       .catch(function(error) {
@@ -48,6 +52,7 @@ class BabySitterDashBoard extends Component {
   }
 
   onAddJob = () => {
+    console.log('on add job click')
     this.setState({ currentView: 'ADDJOB' })
   }
 
@@ -64,17 +69,10 @@ class BabySitterDashBoard extends Component {
     if (this.state.currentView === 'ADDJOB') {
       return (
         <div className="KidsAwesomeText">
-          <Button
-            className="addKidButton"
-            outline
-            color="primary"
-            onClick={this.onJobAdded}
-          >
-            Close Add Job
-          </Button>
-
-          <h1>"Add Job"</h1>
-          <div>to do Add form here</div>
+          <AddJob
+            onCompleted={this.onJobAdded}
+            babySitter={this.state.babySitter}
+          />
         </div>
       )
     }
