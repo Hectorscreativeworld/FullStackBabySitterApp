@@ -65,7 +65,7 @@ class ParentProfileForm extends Component {
       },
       (error, results) => {
         if (error) {
-          console.log(results[0].secure_url)
+          // console.log(results[0].secure_url)
         }
         this.setState({ imageUrl: results[0].secure_url })
       }

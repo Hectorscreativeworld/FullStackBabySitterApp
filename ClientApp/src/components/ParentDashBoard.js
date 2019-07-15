@@ -33,6 +33,7 @@ class ParentDashBoard extends Component {
           loaded: true,
           children: response.data
         })
+        console.log(response.data)
       })
       .catch(function(error) {
         console.log(error)
