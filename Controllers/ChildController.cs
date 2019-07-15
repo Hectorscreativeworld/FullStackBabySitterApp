@@ -46,7 +46,9 @@ namespace sdg_react_template.Controllers
     [HttpGet("all/{id}")]
     public async Task<ActionResult<List<Child>>> GetAll(int id)
     {
-      var child = _context.Children.Include(x => x.CheckList).Where(x => x.ParentId == id);
+      var parent = await _context.Parents.FirstOrDefaultAsync(f => f.UserId == id);
+
+      var child = _context.Children.Include(x => x.CheckList).Where(x => x.ParentId == parent.Id);
 
       if (child == null)
       {
@@ -95,6 +97,9 @@ namespace sdg_react_template.Controllers
     {
       try
       {
+        // We need the parent Id but have the userId
+        var parent = await _context.Parents.FirstOrDefaultAsync(f => f.UserId == child.ParentId);
+        child.ParentId = parent.Id;
         _context.Children.Add(child);
         await _context.SaveChangesAsync();
       }
