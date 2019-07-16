@@ -2,9 +2,9 @@ dotnet publish -c Release
 
 cp dockerfile ./bin/release/netcoreapp2.2/publish
 
-docker build -t safesitter ./bin/release/netcoreapp2.2/publish
+docker build -t safesitter-image ./bin/release/netcoreapp2.2/publish
 
-docker tag safesitter registry.heroku.com/safesitter/web
+docker tag safesitter-image registry.heroku.com/safesitter/web
 
 docker push registry.heroku.com/safesitter/web
 
