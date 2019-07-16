@@ -133,3 +133,21 @@ ul {
 .noteText {
   font-size: 1rem;
 }
+
+/* Media Query */
+
+@media only screen and (max-width: 600px) {
+  .mobileResize {
+    width: 80%;
+  }
+
+  .mobileResize .listItems {
+    width: 100% !important;
+  }
+
+  .stillAndName {
+    width: 80%;
+    margin: auto;
+    margin-top: 5%;
+  }
+}

@@ -29,11 +29,11 @@ class ChildDashBoard extends Component {
         <div>
           <h3>A little bit about {child.firstName}</h3>
         </div>
-        <section className="childParagraph d-flex align-center f-d-column">
+        <section className="childParagraph mobileResize d-flex align-center f-d-column">
           <p>{child.bio}</p>
         </section>
 
-        <div className="AllergyMainContainer">
+        <div className="AllergyMainContainer mobileResize">
           <div className="allergyInfo listItems">
             <h3>{child.firstName} allergy:</h3>
             <ul>
@@ -52,7 +52,7 @@ class ChildDashBoard extends Component {
           </div>
         </div>
 
-        <div className="mainCheckListContainer">
+        <div className="mainCheckListContainer mobileResize">
           <div className="KidsMark listItems">
             <h2>Kids Check:</h2>
             <ul>{todos}</ul>
@@ -64,7 +64,7 @@ class ChildDashBoard extends Component {
         </div>
 
         <h2>Special Instructions</h2>
-        <div className="postedImage">
+        <div className="postedImage mobileResize">
           <div className="postedText">
             <p>{child.notes}</p>
           </div>

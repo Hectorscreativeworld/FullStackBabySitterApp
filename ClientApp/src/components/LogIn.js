@@ -13,7 +13,7 @@ class LogIn extends Component {
   }
   render() {
     return (
-      <div className="d-flex align-center f-d-column">
+      <div className="col-md-8 offset-md-2">
         <div className="logo-container">
           <img className="header-still" src={logo} alt="Header" />
         </div>
@@ -24,3 +24,5 @@ class LogIn extends Component {
 }
 
 export default LogIn
+
+// d-flex align-center f-d-column

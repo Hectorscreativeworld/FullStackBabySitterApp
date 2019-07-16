@@ -101,7 +101,7 @@ namespace sdg_react_template.Controllers
     [HttpGet("userid/{id}")]
     public ActionResult<BabySitter> GetBabySitterByUserId(int id)
     {
-      var babySitter = _context.BabySitters.FirstOrDefault(bs => bs.UserId == id);
+      var babySitter = _context.BabySitters.Include(x => x.User).FirstOrDefault(bs => bs.UserId == id);
 
       if (babySitter == null)
       {
@@ -117,13 +117,23 @@ namespace sdg_react_template.Controllers
     {
       if (id != babySitter.Id)
       {
-        return BadRequest();
+        _context.BabySitters.Add(babySitter);
+        await _context.SaveChangesAsync();
+        return NoContent();
       }
 
       _context.Entry(babySitter).State = EntityState.Modified;
-
+      var user = await _context.Users.FirstAsync(x => x.Id == babySitter.User.Id);
+      if (user != null)
+      {
+        user.Phone = babySitter.User.Phone;
+        user.Email = babySitter.User.Email;
+        user.FirstName = babySitter.User.FirstName;
+        user.LastName = babySitter.User.LastName;
+      }
       try
       {
+        _context.Entry(user).State = EntityState.Modified;
         await _context.SaveChangesAsync();
       }
       catch (DbUpdateConcurrencyException)

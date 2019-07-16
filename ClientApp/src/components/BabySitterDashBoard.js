@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import BabySitterProfileUpdate from './BabySitterProfileUpdate'
 import BabySitterProfile from './BabySitterProfile'
 import AddJob from './AddJob'
 import axios from 'axios'
@@ -43,12 +44,8 @@ class BabySitterDashBoard extends Component {
       })
   }
 
-  onViewChild = child => {
-    this.setState({ currentView: 'CHILDDETAILS', currentChild: child })
-  }
-
   onClosedDetails = () => {
-    this.setState({ currentView: 'MAIN' })
+    this.setState({ currentView: 'PROFILE' })
   }
 
   onAddJob = () => {
@@ -57,6 +54,10 @@ class BabySitterDashBoard extends Component {
   }
 
   onUpdateProfile = () => {
+    this.setState({ currentView: 'PROFILEUPDATE' })
+  }
+
+  onProfile = () => {
     this.setState({ currentView: 'PROFILE' })
   }
 
@@ -78,13 +79,59 @@ class BabySitterDashBoard extends Component {
     }
     return ' '
   }
+  onProfileUpdated = () => {
+    this.refreshProfile()
+    this.onClosedDetails()
+  }
+
+  refreshProfile = () => {
+    let user = null
+    try {
+      user = JSON.parse(localStorage.getItem('user'))
+      this.setState({
+        phone: user.phone,
+        email: user.email,
+        fullName: user.firstName + ' ' + user.lastName
+      })
+    } catch (error) {
+      console.log(error)
+    }
+    console.log(user)
+    let self = this
+    axios
+      .get(`api/babysitter/userid/${user.id}`)
+      .then(function(response) {
+        self.setState({
+          loaded: true,
+          babysitter: response.data
+        })
+      })
+      .catch(function(error) {
+        console.log(error)
+      })
+  }
+
+  renderProfileUpdate = () => {
+    if (
+      this.state.currentView === 'PROFILEUPDATE' &&
+      this.state.loaded === true
+    ) {
+      return (
+        <div className="KidsAwesomeText">
+          <h1>"Update BabySitter Profile"</h1>
+          <BabySitterProfileUpdate onCompleted={this.onProfileUpdated} />
+        </div>
+      )
+    }
+    return ' '
+  }
 
   renderProfile = () => {
     if (this.state.currentView === 'PROFILE' && this.state.loaded === true) {
       return (
         <div className="KidsAwesomeText">
-          <h1>"Kids are Awesome"</h1>
-          <BabySitterProfile onCompleted={this.onClosedDetails} />
+          <h1>"BabySitter Profile"</h1>
+          <BabySitterProfile babySitter={this.state.babysitter} />
         </div>
       )
     }
@@ -104,14 +151,25 @@ class BabySitterDashBoard extends Component {
           >
             Add Job
           </Button>
+          {this.state.currentView !== 'PROFILEUPDATE' && (
+            <Button
+              className="addKidButton"
+              outline
+              color="primary"
+              onClick={this.onUpdateProfile}
+            >
+              Update Profile
+            </Button>
+          )}
           <Button
             className="addKidButton"
             outline
             color="primary"
-            onClick={this.onUpdateProfile}
+            onClick={this.onProfile}
           >
-            Update Profile
+            View Profile
           </Button>
+
           <Button
             className="childrenPageButton"
             outline
@@ -123,9 +181,8 @@ class BabySitterDashBoard extends Component {
         </div>
 
         {this.renderAddJob()}
-        {this.state.currentView === 'PROFILE' && (
-          <BabySitterProfile onClosed={this.onClosedDetails} />
-        )}
+        {this.renderProfileUpdate()}
+        {this.renderProfile()}
         <Footer fixed="bottom" />
       </div>
     )

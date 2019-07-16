@@ -5,9 +5,11 @@ import RegisterForm from './RegisterForm'
 class Register extends Component {
   render() {
     return (
-      <div className="d-flex align-center f-d-column">
+      <div>
         <Header />
-        <RegisterForm setLoggedIn={this.props.setLoggedIn} />
+        <div className="d-flex align-center f-d-column">
+          <RegisterForm setLoggedIn={this.props.setLoggedIn} />
+        </div>
       </div>
     )
   }

@@ -1,20 +1,41 @@
 import React, { Component } from 'react'
-// import BabysitterHeader from './BabysitterHeader'
-import BabysitterForm from './BabySitterForm'
-import { PropTypes } from 'prop-types'
+import '../ChildDashBoard.css'
+import PropTypes from 'prop-types'
 
 class BabySitterProfile extends Component {
+  handleBtnClick = e => {
+    console.log('clicked')
+  }
   render() {
+    const babySitter = this.props.babySitter
+    console.log('inside babysitter profile render')
+    console.log(babySitter)
     return (
-      <div className="d-flex align-center f-d-column">
-        {/* <BabysitterHeader /> */}
-        <BabysitterForm onCompleted={this.props.onCompleted} />
+      <div className="allAboutKid d-flex align-center f-d-column">
+        <div className="stillAndName">
+          <div
+            className="kidsPhoto"
+            style={{
+              backgroundImage: 'url(' + this.props.babySitter.photo + ')'
+            }}
+          />
+          <h2 className="helloText">Hello I'm {babySitter.user.firstName}</h2>
+        </div>
+        <div>
+          <h3>A little bit about {babySitter.firstName}</h3>
+          <h3>Phone: {babySitter.user.phone}</h3>
+          <h3>Email: {babySitter.user.email}</h3>
+          <h3>Hourly Rate: {babySitter.hourlyRate}</h3>
+        </div>
+        <section className="childParagraph mobileResize d-flex align-center f-d-column">
+          <p>{babySitter.theBioInformation}</p>
+        </section>
       </div>
     )
   }
 }
 
-BabySitterProfile.protoType = {
-  onCompleted: PropTypes.func.isRequired
+BabySitterProfile.propTypes = {
+  babySitter: PropTypes.object.isRequired
 }
 export default BabySitterProfile

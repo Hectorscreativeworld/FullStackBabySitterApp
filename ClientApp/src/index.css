@@ -47,13 +47,13 @@ textarea {
 .header-still {
 
   width: 30rem;
-  height: 30rem;
   margin: 3rem;
 
 }
 
 .login-form {
-  width: 30%;
+  width: 40%;
+  margin: auto;
 }
 
 label {
@@ -73,6 +73,7 @@ label {
   flex-direction: column;
   align-items: center;
   margin-top: 0.5rem;
+  margin-bottom: 2rem;
 }
 
 .forgot-text {
@@ -83,8 +84,6 @@ label {
 .daysCanWork {
   display: flex;
 }
-
-
 
 input .datebox {
   display: flex;
@@ -142,4 +141,13 @@ hr {
 
 .AlmostDoneText {
   text-align: center;
+}
+
+
+/* Media Query */
+
+@media only screen and (max-width: 600px) {
+  .login-form {
+    width: 70%;
+  }
 }
