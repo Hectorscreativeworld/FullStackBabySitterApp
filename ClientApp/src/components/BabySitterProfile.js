@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import '../ChildDashBoard.css'
 import PropTypes from 'prop-types'
-import MessageBoard from './MessageBoard'
 
 class BabySitterProfile extends Component {
   handleBtnClick = e => {
@@ -30,7 +29,6 @@ class BabySitterProfile extends Component {
         </div>
         <section className="childParagraph mobileResize d-flex align-center f-d-column">
           <p>{babySitter.theBioInformation}</p>
-          <MessageBoard />
         </section>
       </div>
     )
