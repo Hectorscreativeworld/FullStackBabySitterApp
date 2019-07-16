@@ -4,17 +4,12 @@
  }
 
 
- /* .fa {
-   font-size: 22px;
-   transform: translateY(50deg);
- } */
-
 
 
  .containerMassageApp {
    display: flex;
    flex-direction: column;
-   width: 30%;
+
    margin: 0;
    padding-top: 30px;
  }
@@ -28,8 +23,8 @@
  }
 
  .display-item {
-   width: 65%;
-   margin-left: 50px;
+   width: 100%;
+   margin-left: 30px;
  }
 
  .display-item button {
@@ -43,14 +38,14 @@
    overflow: hidden;
  }
 
- input {
+ input.MessageInput {
    color: rgb(71, 70, 70);
-   padding: 0;
+   padding: 5px 5px;
    font-size: 1rem;
    margin-bottom: 17px;
    border: 0;
    display: block;
-   width: 30%;
+   width: 100%;
  }
 
  .MessageUl {
@@ -64,18 +59,27 @@
    width: auto;
    list-style-type: none;
    margin-right: 50px;
-   background-color: rgb(237, 237, 237);
+
+   background-color: yellow;
+
    color: rgb(71, 70, 70);
    margin-bottom: 2rem;
+   background-size: cover;
+   background-position: center;
+   min-height: 20vh;
 
+ }
+
+ .MessageList p {
+   padding: 10px;
  }
 
 
 
  .MessageList h3 {
-   background-color: #056CB0;
+   background-color: #EBC23E;
    margin: 0;
-   color: #fff;
+   color: rgb(71, 70, 70);
    font-size: 1rem;
    padding: 15px;
  }
@@ -91,10 +95,11 @@
  }
 
  .removeButton {
-   margin-top: 8rem;
-   margin-bottom: 1rem;
-   margin-right: 28px;
+   margin-top: -9px !important;
+   float: right;
  }
+
+
 
 
  /* Media Query */
@@ -102,7 +107,7 @@
  @media only screen and (max-width: 600px) {
    .mobileResize {
      width: 100%;
-     margin-left: 50px;
+     margin-left: 0px;
    }
 
    .mobileResize .listItems {

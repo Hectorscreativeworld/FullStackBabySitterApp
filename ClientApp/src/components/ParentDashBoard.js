@@ -91,6 +91,7 @@ class ParentDashBoard extends Component {
           {childrenRows}
           <div className="kidsStatPage d-flex align-center f-d-column">
             <h2> How are things going:</h2>
+            <MessageBoard />
             <div className="SpecialNotes">
               {/* <p>{child.currentStatus}</p> */}
             </div>
@@ -132,7 +133,7 @@ class ParentDashBoard extends Component {
             child={this.state.currentChild}
           />
         )}
-        <MessageBoard />
+
         <Footer fixed="bottom" />
       </div>
     )

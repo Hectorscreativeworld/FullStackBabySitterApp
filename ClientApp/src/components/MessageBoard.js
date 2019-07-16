@@ -60,20 +60,23 @@ class App extends Component {
           <section className="add-item">
             <form className="loginMassageForm" onSubmit={this.handleSubmit}>
               <input
-                className="whatsGoingOnInput"
-                type="text"
-                name="currentItem"
-                placeholder="Whats Going on?"
-                onChange={this.handleChange}
-                value={this.state.currentItem}
-              />
-              <input
+                className="MessageInput"
                 type="text"
                 name="username"
                 placeholder="Kids name?"
                 onChange={this.handleChange}
                 value={this.state.username}
               />
+
+              <input
+                className="MessageInput"
+                type="text"
+                name="currentItem"
+                placeholder="Whats Going on?"
+                onChange={this.handleChange}
+                value={this.state.currentItem}
+              />
+
               <Button
                 className="sendButton d-flex align-center f-d-column"
                 outline
@@ -89,18 +92,18 @@ class App extends Component {
                 {this.state.items.map(item => {
                   return (
                     <li className="MessageList mobileResize" key={item.id}>
-                      <h3>{item.title}</h3>
-                      <p>{item.user}</p>
-                      <div className="addAndChildButtons d-flex align-center f-d-column">
+                      <h3>
                         <Button
                           className="removeButton"
-                          outline
-                          color="primary"
+                          color="danger"
                           onClick={() => this.removeItem(item.id)}
                         >
                           Remove Item
                         </Button>
-                      </div>
+                        {item.user}
+                      </h3>
+                      <p>{item.title}</p>
+                      <div className="addAndChildButtons d-flex align-center f-d-column" />
                     </li>
                   )
                 })}
