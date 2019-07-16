@@ -145,6 +145,7 @@ class BabySitterForm extends Component {
         console.log(response)
         console.log('successfully updated babysitter profile')
         self.props.onCompleted(response.data)
+        // TODO: update state with the new values
       })
       .catch(function(error) {
         console.log(error)

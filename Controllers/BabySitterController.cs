@@ -122,7 +122,13 @@ namespace sdg_react_template.Controllers
         return NoContent();
       }
 
-      _context.Entry(babySitter).State = EntityState.Modified;
+      // _context.Entry(babySitter).State = EntityState.Modified;
+      var _babySitter = await _context.BabySitters.FirstAsync(f => f.Id == babySitter.Id);
+      _babySitter.PaymentType = babySitter.PaymentType;
+      _babySitter.Photo = babySitter.Photo;
+      _babySitter.TheBioInformation = babySitter.TheBioInformation;
+
+
       var user = await _context.Users.FirstAsync(x => x.Id == babySitter.User.Id);
       if (user != null)
       {
@@ -133,7 +139,6 @@ namespace sdg_react_template.Controllers
       }
       try
       {
-        _context.Entry(user).State = EntityState.Modified;
         await _context.SaveChangesAsync();
       }
       catch (DbUpdateConcurrencyException)

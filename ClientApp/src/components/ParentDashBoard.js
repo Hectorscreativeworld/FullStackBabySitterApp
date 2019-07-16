@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import ParentProfile from './ParentProfile'
 import ChildrenRow from './ChildrenRow'
 import ChildDashBoard from './ChildDashBoard'
+import MessageBoard from './MessageBoard'
 import axios from 'axios'
 import Header from './Header'
 import Footer from './Footer'
@@ -131,6 +132,7 @@ class ParentDashBoard extends Component {
             child={this.state.currentChild}
           />
         )}
+        <MessageBoard />
         <Footer fixed="bottom" />
       </div>
     )
