@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import './MessageBoard.css'
 import firebase from './firebase.js'
+import { Button } from 'reactstrap'
 
 class App extends Component {
   constructor() {
@@ -55,9 +56,17 @@ class App extends Component {
   render() {
     return (
       <div className="MassageApp d-flex align-center f-d-column">
-        <div className="containerMassageApp">
+        <div className="containerMassageApp mobileResize">
           <section className="add-item">
-            <form className="loginMassageform" onSubmit={this.handleSubmit}>
+            <form className="loginMassageForm" onSubmit={this.handleSubmit}>
+              <input
+                className="whatsGoingOnInput"
+                type="text"
+                name="currentItem"
+                placeholder="Whats Going on?"
+                onChange={this.handleChange}
+                value={this.state.currentItem}
+              />
               <input
                 type="text"
                 name="username"
@@ -65,29 +74,33 @@ class App extends Component {
                 onChange={this.handleChange}
                 value={this.state.username}
               />
-              <input
-                type="text"
-                name="currentItem"
-                placeholder="Whats Going on?"
-                onChange={this.handleChange}
-                value={this.state.currentItem}
-              />
-              <button className="sendButton">Send</button>
+              <Button
+                className="sendButton d-flex align-center f-d-column"
+                outline
+                color="primary"
+              >
+                Send
+              </Button>
             </form>
           </section>
           <section className="display-item">
-            <div className="wrapper">
-              <ul>
+            <div className="messageWrapper">
+              <ul className="MessageUl mobileResize">
                 {this.state.items.map(item => {
                   return (
-                    <li key={item.id}>
+                    <li className="MessageList mobileResize" key={item.id}>
                       <h3>{item.title}</h3>
-                      <p>
-                        {item.user}
-                        <button onClick={() => this.removeItem(item.id)}>
+                      <p>{item.user}</p>
+                      <div className="addAndChildButtons d-flex align-center f-d-column">
+                        <Button
+                          className="removeButton"
+                          outline
+                          color="primary"
+                          onClick={() => this.removeItem(item.id)}
+                        >
                           Remove Item
-                        </button>
-                      </p>
+                        </Button>
+                      </div>
                     </li>
                   )
                 })}
