@@ -75,7 +75,9 @@ class BabyLogInForm extends Component {
             required
           />
         </div>
-        <button type="submit">LogIn</button>
+        <button type="submit" style={{ width: '100%' }}>
+          LogIn
+        </button>
 
         <div className="Footer-Text">
           <div>

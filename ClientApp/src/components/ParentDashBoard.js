@@ -41,6 +41,33 @@ class ParentDashBoard extends Component {
       })
   }
 
+  // api/Child/5
+  removeChild(childId) {
+    console.log(childId, 'CHildId Pass')
+    axios.delete(`api/Child/${childId}`).then(function() {
+      let self = this
+      let user = JSON.parse(localStorage.getItem('user'))
+
+      axios
+        .get(`api/child/all/${user.id}`)
+        .then(function(response) {
+          self.setState({
+            loaded: true,
+            children: response.data
+          })
+
+          console.log(response.data)
+        })
+        .catch(function(error) {
+          console.log(error)
+        })
+    })
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    // Typical usage (don't forget to compare props):
+  }
+
   onAddChild = e => {
     e.preventDefault()
     this.setState({
@@ -82,7 +109,12 @@ class ParentDashBoard extends Component {
       if (this.state.loaded) {
         childrenRows = this.state.children.map((x, i) => {
           return (
-            <ChildrenRow child={x} key={i} onViewChild={this.onViewChild} />
+            <ChildrenRow
+              child={x}
+              key={i}
+              onViewChild={this.onViewChild}
+              removeChild={this.removeChild}
+            />
           )
         })
       }

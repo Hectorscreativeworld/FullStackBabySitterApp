@@ -129,7 +129,16 @@ hr {
   border-radius: 8px;
   margin-top: 1rem;
   margin-bottom: 1rem;
+  background-color: #C567AB;
+  color: white;
 
+}
+
+.payButton:hover {
+
+  background-color: #0066FF;
+
+  cursor: pointer;
 }
 
 

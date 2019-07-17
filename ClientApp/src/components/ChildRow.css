@@ -56,6 +56,8 @@
 .linkChildInfo {
   margin-top: 2.5rem;
   padding: 0%;
+  cursor: pointer;
+  color: #C567AB;
 }
 
 

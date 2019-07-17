@@ -1,12 +1,13 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import './ChildRow.css'
+import { Button } from 'reactstrap'
 
 // import { triggerAsyncId } from 'async_hooks'
 
 class ChildrenRow extends Component {
   handleOnClick = e => {
-    console.log(this.props.child)
+    console.log(this.props.child, 'look at me Hector')
     this.props.onViewChild(this.props.child)
   }
 
@@ -16,10 +17,7 @@ class ChildrenRow extends Component {
       return <li key={i}>{x.description}</li>
     })
     return (
-      <div
-        className="childSummary d-flex align-center f-d-column"
-        onClick={this.handleOnClick}
-      >
+      <div className="childSummary d-flex align-center f-d-column">
         <section className="KidsMainText">
           <div className="kidsWrapper">
             <div
@@ -30,10 +28,17 @@ class ChildrenRow extends Component {
               <div className="kidsName">{this.props.child.firstName}</div>
               <div className="kidsParagraph">
                 <p className="kidsBio">{this.props.child.bio}</p>
-                <a className="linkChildInfo" href="url">
-                  link text
-                </a>
+                <span className="linkChildInfo" onClick={this.handleOnClick}>
+                  <strong>READ MORE</strong>
+                </span>
               </div>
+              <Button
+                className="removeButton"
+                color="danger"
+                onClick={() => this.props.removeChild(this.props.child.id)}
+              >
+                Remove Item
+              </Button>
             </div>
           </div>
         </section>
