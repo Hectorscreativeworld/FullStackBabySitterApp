@@ -143,14 +143,14 @@ class BabySitterDashBoard extends Component {
       <div>
         <Header />
         <div className="addAndChildButtons d-flex align-center f-d-column">
-          <Button
+          {/* <Button
             className="addKidButton"
             outline
             color="primary"
             onClick={this.onAddJob}
           >
             Add Job
-          </Button>
+          </Button> */}
           {this.state.currentView !== 'PROFILEUPDATE' && (
             <Button
               className="addKidButton"
@@ -168,15 +168,6 @@ class BabySitterDashBoard extends Component {
             onClick={this.onProfile}
           >
             View Profile
-          </Button>
-
-          <Button
-            className="childrenPageButton"
-            outline
-            color="primary"
-            onClick={this.onClosedDetails}
-          >
-            Main Page
           </Button>
         </div>
 

@@ -1,80 +1,85 @@
 import React, { Component } from 'react'
 import './MessageBoard.css'
-import firebase from './firebase.js'
+import { PropTypes } from 'prop-types'
 import { Button } from 'reactstrap'
+import PubNubReact from 'pubnub-react'
 
-class App extends Component {
+class MessageBoard extends Component {
   constructor() {
     super()
+    this.pubnub = new PubNubReact({
+      publishKey: 'pub-c-e958872a-449a-4bcf-b997-7c05ad366b4d',
+      subscribeKey: 'sub-c-13a09a4c-a8f4-11e9-b39e-aa7241355c4e'
+    })
+
     this.state = {
-      currentItem: '',
-      username: '',
-      items: []
+      currentMessage: '',
+      messages: []
     }
+    this.pubnub.init(this)
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
   }
+  componentWillMount() {
+    let self = this
+    this.pubnub.subscribe({
+      channels: ['channel1'],
+      withPresence: true
+    })
+    this.pubnub.getMessage('channel1', message => {
+      self.setState({ messages: [...self.state.messages, message.message] })
+    })
+  }
+
+  removeItem(index) {
+    console.log('remove item')
+    console.log(index)
+    let messages = [...this.state.messages]
+    this.setState({
+      messages: messages.filter((m, i) => {
+        if (i !== index) {
+          return true
+        }
+        return false
+      })
+    })
+  }
+
   handleChange(e) {
     this.setState({
       [e.target.name]: e.target.value
     })
+    console.log(this.state)
   }
-  handleSubmit(e) {
-    e.preventDefault()
-    const itemsRef = firebase.database().ref('items')
-    const item = {
-      title: this.state.currentItem,
-      user: this.state.username
-    }
-    itemsRef.push(item)
-    this.setState({
-      currentItem: '',
-      username: ''
-    })
-  }
-  componentDidMount() {
-    const itemsRef = firebase.database().ref('items')
-    itemsRef.on('value', snapshot => {
-      let items = snapshot.val()
-      let newState = []
-      for (let item in items) {
-        newState.push({
-          id: item,
-          title: items[item].title,
-          user: items[item].user
-        })
+  handleSubmit(event) {
+    event.preventDefault()
+    console.log('handle submit')
+    console.log(this.state)
+    this.pubnub.publish({
+      channel: 'channel1',
+      message: {
+        description: this.state.currentMessage,
+        user: this.props.who
       }
-      this.setState({
-        items: newState
-      })
     })
   }
-  removeItem(itemId) {
-    const itemRef = firebase.database().ref(`/items/${itemId}`)
-    itemRef.remove()
-  }
+
   render() {
+    let messages = this.state.messages
+    console.log(this.state.messages)
     return (
       <div className="MassageApp d-flex align-center f-d-column">
         <div className="containerMassageApp mobileResize">
           <section className="add-item">
             <form className="loginMassageForm" onSubmit={this.handleSubmit}>
+              <label htmlFor="currentMessage">Message</label>
               <input
                 className="MessageInput"
                 type="text"
-                name="username"
-                placeholder="Kids name?"
-                onChange={this.handleChange}
-                value={this.state.username}
-              />
-
-              <input
-                className="MessageInput"
-                type="text"
-                name="currentItem"
+                name="currentMessage"
                 placeholder="Whats Going on?"
                 onChange={this.handleChange}
-                value={this.state.currentItem}
+                value={this.state.currentMessage}
               />
 
               <Button
@@ -89,20 +94,21 @@ class App extends Component {
           <section className="display-item">
             <div className="messageWrapper">
               <ul className="MessageUl mobileResize">
-                {this.state.items.map(item => {
+                {messages.map((m, i) => {
+                  let n = i
                   return (
-                    <li className="MessageList mobileResize" key={item.id}>
+                    <li className="MessageList mobileResize" key={n}>
                       <h3>
                         <Button
                           className="removeButton"
                           color="danger"
-                          onClick={() => this.removeItem(item.id)}
+                          onClick={() => this.removeItem(n)}
                         >
                           Remove Item
                         </Button>
-                        {item.user}
+                        {m.user}
                       </h3>
-                      <p>{item.title}</p>
+                      <p>{m.description}</p>
                       <div className="addAndChildButtons d-flex align-center f-d-column" />
                     </li>
                   )
@@ -115,4 +121,8 @@ class App extends Component {
     )
   }
 }
-export default App
+
+MessageBoard.protoType = {
+  who: PropTypes.string.isRequired
+}
+export default MessageBoard

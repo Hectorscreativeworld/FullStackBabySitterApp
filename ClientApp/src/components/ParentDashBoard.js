@@ -123,7 +123,7 @@ class ParentDashBoard extends Component {
           {childrenRows}
           <div className="kidsStatPage d-flex align-center f-d-column">
             <h2> How are things going:</h2>
-            <MessageBoard />
+            <MessageBoard who="parent" />
             <div className="SpecialNotes">
               {/* <p>{child.currentStatus}</p> */}
             </div>
